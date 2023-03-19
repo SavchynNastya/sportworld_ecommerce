@@ -1,0 +1,14 @@
+<form id="registration-form" method="POST" action="/registration-form/" class="login__form">
+  {% csrf_token %}
+    {% for field in form %}
+    <div>
+        <p class="label__input">{{ field.label }}{{ field }}</p>
+
+        {% for error in field.errors %}
+        <small class="error-message">{{ error }}</small><br>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+  <button type="submit" class="enter-button">Зареєструватися</button>
+</form>

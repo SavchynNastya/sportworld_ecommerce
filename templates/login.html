@@ -1,0 +1,19 @@
+<form id="login" method="POST" action="/login/" class="login__form">
+    {% csrf_token %}
+
+    <p class="label__input">{{ form.email.label }}{{ form.email }}</p>
+    <p class="label__input password">{{ form.password.label }}
+        <span class="password__input">{{ form.password }}<button type="button" class="password-button fa-regular fa-eye-slash" onclick="showPassword()"></button></span>
+    </p>
+
+
+    {% if form.errors %}
+      {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <small>{{ error }}</small><br>
+          {% endfor %}
+      {% endfor %}
+  {% endif %}
+
+    <button type="submit" class="enter-button">Вхід</button>
+</form>

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportWorld</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    {% block stylesheets %}
+    {% endblock stylesheets %}
+</head>
+<body>
+    <header class="header">
+        <div class="header__logo">
+                <a href="/" class="header__logo-link">
+                    <img class="logo__svg" src="../static/img/logo.png" alt="logo">
+                </a>
+            </div>
+        <div class="wrapper">
+            <nav class="header__nav">
+                <div class="search__container">
+                    <form action="" class="search__container-form">
+                        <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
+                        <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
+                    </form>
+                </div>
+            </nav>
+            <div class="header__burger burger">
+                <span class="header__burger-line header__burger-line-first"></span>
+                <span class="header__burger-line header__burger-line-second"></span>
+                <span class="header__burger-line header__burger-line-third"></span>
+            </div>
+        </div>
+        <ul class="header__nav nav__links">
+            <li class="header__icon_item">
+                <img src="../static/img/svg/nav_like.svg" class="header__icon" alt="like__icon"/>
+                <a href="#" class="nav__link-name">Вподобані товари</a>
+            </li>
+            <li class="header__icon_item">
+                <img src="../static/img/svg/cart.svg" class="header__icon" alt="cart__icon"/>
+                <a href="#" class="nav__link-name">Кошик</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="header__icon_item">
+                <a href="{% url 'logout' %}?next=../" class="">
+                    <img src="../static/img/svg/logout.svg" class="header__icon" alt="logout__exit__icon" />
+                    <a href="" class="nav__link-name">Logout</a>
+                </a>
+            </li>
+            {% else %}
+            <li class="header__icon_item" id="open-modal">
+                <img src="../static/img/svg/profile.svg" class="header__icon" alt="profile__icon" />
+                <a href="#" class="nav__link-name">Авторизуватися</a>
+            </li>
+            {% endif %}
+            <div class="header__nav-close">
+                <span class="header__burger-line-close"></span>
+                <span class="header__burger-line-close"></span>
+            </div>
+        </ul>
+    </header>
+    <div id="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="close-modal">&times;</button>
+            <h2 id="modal-title">Login</h2>
+        </div>
+        <div id="login-form">
+            {% include 'login.html' %}
+        </div>
+        <div class="modal-footer">
+            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+        </div>
+        </div>
+    </div>
+    <main class="main">
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer class="footer">
+        <div class="wrapper__footer">
+            <div class="footer__logo">
+                <img src="../static/img/logo.png" alt="logo_big" class="footer__logo_big">
+            </div>
+            <div class="info">
+                <ul class="footer__info">
+                    <li class="footer__info__list-item_big_spacing">
+                        <h5 class="footer__info__heading">Адреса магазину</h5>
+                        <p class="footer__info__text">м. Київ, вул. Хрещатик 35</p>
+                    </li>
+                    <li class="footer__info__list-item_big_spacing">
+                        <h5 class="footer__info__heading">Електронна пошта</h5>
+                        <p class="footer__info__text">sportwrld@gmail.com</p>
+                    </li>
+                    <li class="footer__info__list-item_big_spacing">
+                        <h5 class="footer__info__heading">Номер телефону</h5>
+                        <p class="footer__info__text">+38(093)-194-22-11</p>
+                    </li>
+                </ul>
+                <ul class="footer__nav">
+                    <li class="footer__info__list-item">
+                        <h5 class="footer__info__heading">Навігація</h5>
+                    </li>
+                    <li class="footer__info__list-item"><a href="#" class="footer__nav-link">Головна</a></li>
+                    <li class="footer__info__list-item"><a href="#" class="footer__nav-link">Про нас</a></li>
+                    <li class="footer__info__list-item"><a href="#" class="footer__nav-link">Співпраця</a></li>
+                </ul>
+                <div class="social__media">
+                    <div class="social__media__item">
+                        <img src="../static/img/svg/insta.svg" alt="" class="social__icon">
+                        <h5 class="social__media__title">Instagram</h5>
+                        <a href="#" class="footer__social-link">@sportwrld</a>
+                    </div>
+                    <div class="social__media__item">
+                        <img src="../static/img/svg/twitter.svg" alt="" class="social__icon">
+                        <h5 class="social__media__title">Twitter</h5>
+                        <a href="#" class="footer__social-link">@sportwrld</a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">© 2022 Sport World. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/72cdf14cdd.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../static/js/register_login.js"></script>
+    {% block scripts %}
+    {% endblock scripts %}
+</body>
+</html>

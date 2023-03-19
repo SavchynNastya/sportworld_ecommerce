@@ -1,0 +1,617 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main__section-main__page">
+        <!-- <div class="wrapper"> -->
+            <div class="slider__full wrapper">
+                <div class="slider__full-wrapper">
+                    <div class="slide active__slide">
+                        <div class="slide__container">
+                            <img src="../static/img/slider-full-1.jpg" alt="tennis discount" class="slide__full-img">
+                            <div class="slide__full-info">
+                                <p class="slide__full-desc">Акція <span class="slider__bold-text">-20%</span> на товари для тенісу до кінця тижня</p>
+                                <p class="slide__full-remark">*Категорія: Професійний спорт<br/>Підкатегорія: Теніс</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide__container">
+                            <img src="../static/img/slider-full-2.jpg" alt="carpet" class="slide__full-img">
+                            <div class="slide__full-info">
+                                <p class="slide__full-desc">Купуй коврик для фітнесу та отримуй поради щодо ефективного стречингу</p>
+                                <p class="slide__full-remark">*до 29.05 включно</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide__container">
+                            <img src="../static/img/slider-full-3.jpg" alt="protein discount" class="slide__full-img">
+                            <div class="slide__full-info-last">
+                                <p class="slide__full-desc">Разом вигідніше!<br/>Купуй 100% Соєвий протеїн, ізолят та амінокислоти Optinum Nutrition та заощаджуй 600 грн</p>
+                                <p class="slide__full-remark">*до 29.05 включно</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dots-wrapper">
+                    <span class="dot active__dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        <!-- </div> -->
+        <div class="search__container__sm-screen wrapper">
+            <form action="" class="search__container-form">
+                <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
+                <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
+            </form>
+        </div>
+        <div class="categories wrapper">
+            <div class="category active-category">
+                <img src="../static/img/category-1.png" alt="" class="category__icon">
+                <p class="category__name">Домашні тренування</p>
+            </div>
+            <div class="category">
+                <img src="../static/img/category-2.png" alt="" class="category__icon">
+                <p class="category__name">Професійний спорт</p>
+            </div>
+            <div class="category">
+                <img src="../static/img/category-3.png" alt="" class="category__icon">
+                <p class="category__name">Спортивне харчування</p>
+            </div>
+        </div>
+        <div class="subcategories wrapper">
+            <ul class="subcategories__list">
+                <li class="subcategory active-subcategory" id="subcat-1"><a href="" class="subcategory__link">Все</a></li>
+                <li class="subcategory" id="subcat-2"><a href="" class="subcategory__link">Турніки</a></li>
+                <li class="subcategory" id="subcat-3"><a href="" class="subcategory__link">Килимки для йоги</a></li>
+                <li class="subcategory" id="subcat-4"><a href="" class="subcategory__link">Масажні ролики</a></li>
+                <li class="subcategory" id="subcat-5"><a href="" class="subcategory__link">Гантелі</a></li>
+                <li class="subcategory" id="subcat-6"><a href="" class="subcategory__link">Гирі</a></li>
+                <li class="subcategory" id="subcat-7"><a href="" class="subcategory__link">Тренажери для пресу</a></li>
+                <li class="subcategory" id="subcat-8"><a href="" class="subcategory__link">Еспандери</a></li>
+                <li class="subcategory" id="subcat-9"><a href="" class="subcategory__link">Фітнес-резинки</a></li>
+                <li class="subcategory" id="subcat-10"><a href="" class="subcategory__link">Скакалки</a></li>
+            </ul>
+        </div>
+        <div class="filters wrapper">
+            <div class="price__sorting filter" >
+                <p class="filter__name">Цінове сортування</p>
+                <p class="filter__name-sm-screen">Сортування</p>
+                <!-- <img src="./img/svg/arrow_down.svg" alt="" class="arrow__down-img"> -->
+                <ul class="drop__down-list">
+                    <li class="sort__option">За спаданням</li>
+                    <li class="sort__option">За зростанням</li>
+                </ul>
+            </div>
+            <div class="producer__filtering filter">
+                <p class="filter__name">Виробники</p>
+                <!-- <form action=""> -->
+                <div class="producer__filtering-container">
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="liveup" value="liveup" class="label__producer">LiveUp
+                                <input id="liveup" type="checkbox" class="checkbox__producer" name="liveup">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="asics" value="asics" class="label__producer">Asics
+                                <input id="asics" type="checkbox" class="checkbox__producer" name="asics">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="arena" value="arena" class="label__producer">Arena
+                                <input id="arena" type="checkbox" class="checkbox__producer" name="arena">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="jackwolfskin" value="jack wolfskin" class="label__producer">Jack Wolfskin
+                                <input id="jackwolfskin" type="checkbox" class="checkbox__producer" name="jackwolfskin">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="caterpillar" value="caterpillar" class="label__producer">Caterpillar
+                                <input id="caterpillar" type="checkbox" class="checkbox__producer" name="caterpillar">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="evoids" value="evoids" class="label__producer">Evoids
+                                <input id="evoids" type="checkbox" class="checkbox__producer" name="evoids">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="speedo" value="speedo" class="label__producer">Speedo
+                                <input id="speedo" type="checkbox" class="checkbox__producer" name="speedo">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="radder" value="radder" class="label__producer">Radder
+                                <input id="radder" type="checkbox" class="checkbox__producer" name="radder">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="optinumnutrition" value="optinum nutrition" class="label__producer">Optinum Nutrition
+                                <input id="optinumnutrition" type="checkbox" class="checkbox__producer" name="optinumnutrition">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="bsn" value="bsn" class="label__producer">BSN
+                                <input id="bsn" type="checkbox" class="checkbox__producer" name="bsn">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="producers__col">
+                        <div class="producer">
+                            <label for="biotech" value="biotech" class="label__producer">BioTech
+                                <input id="biotech" type="checkbox" class="checkbox__producer" name="biotech">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="producer">
+                            <label for="scitechnutrition" value="scitech nutrition" class="label__producer">SciTech Nutrition
+                                <input id="scitechnutrition" type="checkbox" class="checkbox__producer" name="scitechnutrition">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+            <div class="price__filtering filter">
+                <p class="filter__name">Ціна</p>
+                <form action="" class="price__filtering-form">
+                    <div class="input__fields">
+                        <div class="field__container">
+                            <label for="min__price"class="label__price__filter">Від</label>
+                            <input id="min__price" type="text" class="price__filter-input" name="price__min">
+                        </div>
+                        <div class="field__container">
+                            <label for="max__price"class="label__price__filter">До</label>
+                            <input id="max__price" type="text" class="price__filter-input" name="price__max">
+                        </div>
+                    </div>
+                    <button class="submit__price__filter-form">Застосувати</button>
+                </form>
+            </div>
+        </div>
+        <div class="items wrapper">
+            <div class="items__container">
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main__item__card" >
+                    <button class="main__like__item-button">
+                        <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                    </button>
+                    <button class="main__add-to-cart-button">
+                        <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
+                    </button>
+                    <div class="main__card__content" onclick="location.href='item_page.html';">
+                        <div class="main__img__container">
+                            <img src="../static/img/item_img.jpg" alt="item_img" class="main__item__img">
+                        </div>
+                        <div class="main__item__info">
+                            <p class="main__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                            <p class="main__item__cost">860 UAH</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="../static/js/main.js"></script>
+{% endblock scripts %}

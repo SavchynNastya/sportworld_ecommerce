@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main">
+        <div class="wrapper">
+            <h1 class="page__heading">Кошик</h1>
+            <p class="cart__items__quanity">Всього: <span class="quantity-value">1</span></p>
+            <div class="cart__container">
+                <div class="cart__items__container">
+                    <div class="cart__item__card">
+                        <div class="cart__card__content">
+                            <div class="cart__img__container" onclick="location.href='item_page.html';">
+                                <img src="../static/img/item_img.jpg" alt="item_img" class="cart__item__img">
+                            </div>
+                            <div class="cart__control__buttons">
+                                <button class="cart__like__item-button">
+                                    <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                                </button>
+                                <button class="cart__delete__item-button">
+                                    <img src="../static/img/svg/delete-item.svg" alt="delete__item" class="delete__item">
+                                </button>
+                            </div>
+                            <div class="cart__item__info">
+                                <p class="cart__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                                <p class="cart__item__desc-short">
+                                    Whey Protein від Power Pro – ситний, знежирений протеїновий коктейль з ніжним смаком та ароматом. Запатентована компанією Power Pro пудроподібна текстура протеїну повністю, без грудок, розчиняється не тільки в молоці, але й у воді, зберігаючи коктейль таким же смачним і таким, що насичує.
+                                </p>
+                                <div class="cart__summary-row">
+                                    <span class="item__cost cart__item__cost">860 UAH</span>
+                                    <span class="cart__quantity">
+                                        <span class="cart__quantity-text">Кількість</span>
+                                        <input type="text" class="items__quantity-input" value="3" name="items__quantity" readonly/>
+                                        <button class="change__quantity increase">+</button>
+                                        <button class="change__quantity decrease">-</button>
+                                    </span>
+                                    <span class="cart__summary__pricing">
+                                        <span class="cart__summary__pricing-text">Всього:</span>
+                                        <span class="cart__summary__pricing-value">2448 UAH</span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="cart__summary">
+                    <div class="cart__summary__block">
+                        <p class="cart__summary-text">Загальна ціна товарів: <span class="cart__summary-value">2448 UAH</span></p>
+                    </div>
+                    <p class="select__payment">Оберіть зручний спосіб оплати</p>
+                    <div class="payment__methods">
+                        <img src="../static/img/svg/paypal.svg" alt="payment method" class="method">
+                        <img src="../static/img/svg/mastercard.svg" alt="payment method" class="method">
+                        <img src="../static/img/svg/visa.svg" alt="payment method" class="method">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="../static/js/cart.js"></script>
+{% endblock scripts %}

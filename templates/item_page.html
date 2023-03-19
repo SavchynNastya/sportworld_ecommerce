@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main item__page-main">
+        <div class="wrapper">
+            <h1 class="item-page__item__heading">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</h1>
+            <div class="item-page__item__content">
+                <img src="../static/img/item-img-lg.jpg" alt="Item Image" class="item-page__item__img">
+                <h1 class="item-page__item__heading__sm-screen">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</h1>
+                <div class="item__page__item__full-info">
+                    <div class="item-page__item__info">
+                        <div class="item-page__item__desc">
+                            <p class="item-page__item__desc-heading">Опис товару<span class="item-page__tick"></span></p>
+                            <p class="item-page__item__desc-text">Whey Protein від Power Pro – ситний, знежирений протеїновий коктейль з ніжним смаком та ароматом. Запатентована компанією Power Pro пудроподібна текстура протеїну повністю, без грудок, розчиняється не тільки в молоці, але й у воді, зберігаючи коктейль таким же смачним і таким, що насичує.
+                            Містить ізолят сироваткового протеїну - більше 90% чистого білка без жиру, холестерину та лактози (молочного цукру), гідролізат сироваткового протеїну, концентрат сироваткового протеїну. Проста формула без важких компонентів дозволяє швидше засвоюватися м'язами. Ефективна добавка для промальовування рельєфу та захисту м'язів від руйнування після тренування.
+                            До складу коктейлю входить урсолова кислота, яка має низку майже магічних якостей.</p>
+                        </div>
+                        <div class="item-page__item__price">
+                            <div class="item-page__item__price__info">
+                                <p class="item-page__item__price-heading">Ціна: </p>
+                                <p class="item-page__item__price-value">816 UAH</p>
+                            </div>
+                            <div class="item-page__item__available">
+                                <p class="item-page__item__available-text">В наявності</p>
+                            </div>
+                        </div>
+                        <div class="item-page__item__buttons">
+                            <button class="item-page__add__to__cart">Додати до кошика</button>
+                            <button class="item-page__add__to__liked" onclick="likeItemPage()"><img src="../static/img/svg/heart_item-page.svg" alt="" class="item-page-like"><p class="item-page__add_text">Додати до вподобаних товарів</p></button>
+                        </div>
+                    </div>
+                    <div class="item-page__item__advantages">
+                        <div class="item-page__item__advantage item-page__shipping_adv">
+                            <p class="item-page__item__adv-heading">Швидка доставка</p>
+                            <p class="item-page__item__adv-text">Очікування замовлення займе не більше 3 діб.</p>
+                        </div>
+                        <div class="item-page__item__advantage item-page__secure_payment_adv">
+                            <p class="item-page__item__adv-heading">Безпечна і зручна оплата</p>
+                            <p class="item-page__item__adv-text">Visa, Mastercard, PayPal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="../static/js/item_page.js"></script>
+{% endblock scripts %}
