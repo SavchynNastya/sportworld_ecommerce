@@ -13,18 +13,14 @@
 <body>
     <header class="header">
         <div class="header__logo">
-                <a href="/" class="header__logo-link">
+                <a href="{% url 'main_page' %}" class="header__logo-link">
                     <img class="logo__svg" src="../static/img/logo.png" alt="logo">
                 </a>
             </div>
         <div class="wrapper">
             <nav class="header__nav">
-                <div class="search__container">
-                    <form action="" class="search__container-form">
-                        <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
-                        <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
-                    </form>
-                </div>
+                {% block header_content %}
+                {% endblock header_content %}
             </nav>
             <div class="header__burger burger">
                 <span class="header__burger-line header__burger-line-first"></span>
@@ -33,19 +29,23 @@
             </div>
         </div>
         <ul class="header__nav nav__links">
+            {% block header_content-sm-screen %}
+            {% endblock header_content-sm-screen %}
+
+            {% if user.is_authenticated %}
             <li class="header__icon_item">
                 <img src="../static/img/svg/nav_like.svg" class="header__icon" alt="like__icon"/>
-                <a href="#" class="nav__link-name">Вподобані товари</a>
+                <a href="{% url 'liked_items' %}" class="nav__link-name">Вподобані товари</a>
             </li>
             <li class="header__icon_item">
                 <img src="../static/img/svg/cart.svg" class="header__icon" alt="cart__icon"/>
-                <a href="#" class="nav__link-name">Кошик</a>
+                <a href="{% url 'cart' %}" class="nav__link-name">Кошик</a>
             </li>
-            {% if user.is_authenticated %}
+            
             <li class="header__icon_item">
                 <a href="{% url 'logout' %}?next=../" class="">
                     <img src="../static/img/svg/logout.svg" class="header__icon" alt="logout__exit__icon" />
-                    <a href="" class="nav__link-name">Logout</a>
+                    <a href="{% url 'logout' %}?next=../" class="nav__link-name">Logout</a>
                 </a>
             </li>
             {% else %}
@@ -62,8 +62,8 @@
     </header>
     <div id="modal">
     <div class="modal-content">
+        <button id="close-modal">&times;</button>
         <div class="modal-header">
-            <button id="close-modal">&times;</button>
             <h2 id="modal-title">Login</h2>
         </div>
         <div id="login-form">
@@ -78,7 +78,7 @@
         {% block content %}
         {% endblock content %}
     </main>
-    <footer class="footer">
+    <footer class="footer" id="contacts">
         <div class="wrapper__footer">
             <div class="footer__logo">
                 <img src="../static/img/logo.png" alt="logo_big" class="footer__logo_big">

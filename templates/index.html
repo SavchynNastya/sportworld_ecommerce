@@ -1,5 +1,46 @@
 {% extends 'base.html' %}
 
+{% block header_content %}
+    <ul class="nav__links">
+        <li class="landing__header__item">
+            <a href="#about" class="header__link js-scroll">Про магазин</a>
+        </li>
+        <li class="landing__header__item">
+            <a href="#shipping" class="header__link js-scroll">Доставка</a>
+        </li>
+        <li class="landing__header__item">
+            <a href="#contacts" class="header__link js-scroll">Контакти</a>
+        </li>
+        <li class="landing__header__item">
+            <a href="{% url 'main_page' %}" class="header__link">Головна</a>
+        </li>
+        <li class="landing__header__item hidden__link">
+            <a href="{% url 'cart' %}" class="header__link">Кошик</a>
+        </li>
+        <li class="landing__header__item hidden__link">
+            <a href="{% url 'liked_items' %}" class="header__link">Вподобані товари</a>
+        </li> 
+        <li class="landing__header__item hidden__link">
+            <a href="#" class="header__link">Авторизуватися</a>
+        </li> 
+    </ul>
+{% endblock header_content %}
+
+{% block header_content-sm-screen %}
+    <li class="landing__header__item hidden__link">
+        <a href="#about" class="header__link js-scroll">Про магазин</a>
+    </li>
+    <li class="landing__header__item hidden__link">
+        <a href="#shipping" class="header__link js-scroll">Доставка</a>
+    </li>
+    <li class="landing__header__item hidden__link">
+        <a href="#contacts" class="header__link js-scroll">Контакти</a>
+    </li>
+    <li class="landing__header__item hidden__link">
+        <a href="{% url 'main_page' %}" class="header__link">Головна</a>
+    </li>
+{% endblock header_content-sm-screen %}
+
 {% block content %}
     <main class="landing__main">
         <section class="hero__section">
@@ -363,7 +404,7 @@
                     </div>
                 </div>
                 <!-- SLIDER -->
-                <a href="main.html" class="to__catalogue">До каталогу</a>
+                <a href="{% url 'main_page' %}" class="to__catalogue">До каталогу</a>
             </div>
         </section>
         <section class="why__we__section">

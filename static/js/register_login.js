@@ -19,8 +19,6 @@ const modalTitle = document.getElementById("modal-title");
 const switchToRegisterLink = document.getElementById("switch-to-register");
 
 
-
-
 openModalBtn.addEventListener("click", function () {
   modal.style.display = "block";
 });
@@ -48,6 +46,7 @@ function submitForm(form, url, title) {
             const newForm = formContainer.firstElementChild;
             newForm.addEventListener("submit", function (event) {
               event.preventDefault();
+              console.log(url)
               submitForm(newForm, url, title);
             });
           }
@@ -58,12 +57,15 @@ function submitForm(form, url, title) {
           const newForm = formContainer.firstElementChild;
           newForm.addEventListener("submit", function (event) {
             event.preventDefault();
+            console.log(url);
             submitForm(newForm, url, title);
           });
         }
       } else {
+        console.log(url);
         const errors = JSON.parse(xhr.response);
         const form = document.getElementById("login-form");
+        console.log(form);
         for (const field in form.elements) {
           if (errors[field]) {
             const errorSpan = document.createElement("span");
@@ -75,7 +77,7 @@ function submitForm(form, url, title) {
       }
     }
   };
-
+  console.log(url);
   xhr.open("POST", url);
   xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   xhr.send(formData);
@@ -83,11 +85,22 @@ function submitForm(form, url, title) {
   modalTitle.innerHTML = title;
 }
 
+const loginForm = document.getElementById("login-form");
+
+const registrationFormSubmitHandler = function (event) {
+  event.preventDefault();
+  submitForm(loginForm.firstChild, "/registration-form/", "Register");
+};
+
+const loginFormSubmitHandler = function (event) {
+  event.preventDefault();
+  submitForm(loginForm.firstChild, "/login/", "Login");
+};
+
 
 openModalBtn.addEventListener("click", function () {
-
-  const loginForm = document.getElementById("login-form");
-  const modalTitle = document.getElementById("modal-title");
+  // const loginForm = document.getElementById("login-form");
+  // const modalTitle = document.getElementById("modal-title");
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -99,16 +112,13 @@ openModalBtn.addEventListener("click", function () {
   xhr.open("GET", "/login/");
   xhr.send();
 
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    submitForm(loginForm.firstChild, "/login/", "Login");
-  });
+  loginForm.addEventListener("submit", loginFormSubmitHandler);
 });
 
 
 function switchToRegisterForm() {
-  const loginForm = document.getElementById("login-form");
-  const modalTitle = document.getElementById("modal-title");
+  // const loginForm = document.getElementById("login-form");
+  // const modalTitle = document.getElementById("modal-title");
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -120,10 +130,8 @@ function switchToRegisterForm() {
   xhr.open("GET", "/registration-form/");
   xhr.send();
 
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    submitForm(loginForm.firstChild, "/registration-form/", "Register");
-  });
+  loginForm.removeEventListener("submit", loginFormSubmitHandler);
+  loginForm.addEventListener("submit", registrationFormSubmitHandler);
 
   switchToRegisterLink.innerHTML = "Login";
   switchToRegisterLink.removeEventListener("click", switchToRegisterForm);
@@ -131,8 +139,8 @@ function switchToRegisterForm() {
 }
 
 function switchToLoginForm() {
-  const loginForm = document.getElementById("login-form");
-  const modalTitle = document.getElementById("modal-title");
+  // const loginForm = document.getElementById("login-form");
+  // const modalTitle = document.getElementById("modal-title");
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -144,10 +152,8 @@ function switchToLoginForm() {
   xhr.open("GET", "/login/");
   xhr.send();
 
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    submitForm(loginForm, "/login/", "Login");
-  });
+  loginForm.removeEventListener("submit", registrationFormSubmitHandler);
+  loginForm.addEventListener("submit", loginFormSubmitHandler);
 
   switchToRegisterLink.innerHTML = "Register";
   switchToRegisterLink.removeEventListener("click", switchToLoginForm);

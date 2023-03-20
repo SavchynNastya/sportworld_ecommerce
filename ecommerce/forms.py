@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -35,17 +35,6 @@ class UserRegistrationForm(UserCreationForm):
 
         return self.cleaned_data
     
-
-# class CustomAuthenticationForm(AuthenticationForm):
-#     username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}))
-#     password = forms.CharField(widget=forms.PasswordInput)
-
-#     def clean_username(self):
-#         email = self.cleaned_data.get('username')
-#         if email:
-#             self.cleaned_data['username'] = email.lower()
-#         return email.lower()
-
 
 class CustomAuthenticationForm(AuthenticationForm):
     email = forms.EmailField(label='Електронна пошта')
@@ -102,30 +91,29 @@ class CustomAuthenticationForm(AuthenticationForm):
     def clean(self):
         cleaned_data = super().clean()
         
-        # email = cleaned_data.get('username')
-        # password = cleaned_data.get('password')
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
         
-        # if email and password:
-        #     UserModel = get_user_model()
-        #     try:
-        #         user = UserModel.objects.get(email=email)
-        #     except UserModel.DoesNotExist:
-        #         self.add_error('username', 'Invalid email or password')
-        #         return cleaned_data
+        if email and password:
+            UserModel = get_user_model()
+            try:
+                user = UserModel.objects.get(email=email)
+            except UserModel.DoesNotExist:
+                self.add_error('email', 'Неправильна адреса ел. пошти')
+                return cleaned_data
 
-        #     if not user.check_password(password):
-        #         self.add_error('username', 'Invalid email or password')
-        #         return cleaned_data
+            if not user.check_password(password):
+                self.add_error('password', 'Неправильний пароль')
+                return cleaned_data
 
-        #     if not self.user_can_authenticate(user):
-        #         self.add_error('username', 'This account is inactive')
-        #         return cleaned_data
+            # if not self.user_can_authenticate(user):
+            #     self.add_error('username', 'Акаунт не активний')
+            #     return cleaned_data
 
         return cleaned_data
 
 # class PasswordResetForm(PasswordResetForm):
 #     email = forms.EmailField(required=True, label='Електронна пошта')
-
 
 #     def clean(self):
 #         email = self.cleaned_data.get('email')
@@ -167,17 +155,3 @@ class CustomAuthenticationForm(AuthenticationForm):
 #         'password_mismatch': 'Паролі не співпадають.'
 #     }
 
-
-# class SignUpForm(UserCreationForm):
-#     first_name = forms.CharField(max_length=30, required=False, help_text='')
-#     last_name = forms.CharField(max_length=30, required=False, help_text='')
-#     email = forms.EmailField(max_length=254, help_text='Введіть електронну адресу')
-
-#     class Meta:
-#         model = User
-#         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
-
-# class LoginForm(AuthenticationForm):
-#     class Meta:
-#         model = User
-#         fields = ('username', 'password',)

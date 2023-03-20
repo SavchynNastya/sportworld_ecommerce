@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
+{% block header_content %}
+    <div class="search__container">
+        <form action="" class="search__container-form">
+            <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
+            <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
+        </form>
+    </div>
+{% endblock header_content %}
+
 {% block content %}
     <main class="main">
         <div class="wrapper">
@@ -9,7 +18,7 @@
                 <div class="cart__items__container">
                     <div class="cart__item__card">
                         <div class="cart__card__content">
-                            <div class="cart__img__container" onclick="location.href='item_page.html';">
+                            <div class="cart__img__container" onclick="location.href='/item_page';">
                                 <img src="../static/img/item_img.jpg" alt="item_img" class="cart__item__img">
                             </div>
                             <div class="cart__control__buttons">

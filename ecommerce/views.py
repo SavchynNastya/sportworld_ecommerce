@@ -4,12 +4,14 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth import login, authenticate
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect
 # from .forms import SignUpForm, LoginForm
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm, CustomAuthenticationForm
 from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login as auth_login, logout
 from django.urls import reverse_lazy, reverse
@@ -44,7 +46,34 @@ class CustomLoginView(LoginView):
         print(form.is_valid())
         print(form.errors)
         print(form.data)
+        print("HELLO/")
         messages.error(self.request, 'Неправильний email чи пароль.')
+        print(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+    
+class CustomRegistrationView(SuccessMessageMixin, CreateView):
+    form_class = UserRegistrationForm
+    template_name = 'register.html'
+    success_url = reverse_lazy('main_page')
+    success_message = 'Реєстрація успішна. Ви зареєструвалися як %(username)s.'
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get('email')
+        form.instance.username = form.instance.email
+        password = form.cleaned_data.get('password1')
+        username = form.cleaned_data.get('username')
+        user = form.save()
+        auth_login(self.request, user, backend='ecommerce.backends.EmailBackend')
+        user.backend = EmailBackend.__module__ + "." + EmailBackend.__qualname__
+        return JsonResponse({'success': True, 'redirect_url': reverse('main_page')})
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Помилка при реєстрації. Будь ласка, перевірте введені дані.')
         return self.render_to_response(self.get_context_data(form=form))
     
     def get_context_data(self, **kwargs):
@@ -53,20 +82,22 @@ class CustomLoginView(LoginView):
         return context
 
 
-def registration_form(request):
-    if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            form.instance.username = form.instance.email
-            user = form.save()
-            auth_login(request, user, backend='ecommerce.backends.EmailBackend')
-            return JsonResponse({'success': True, 'redirect_url': reverse('main_page')})
-        else:
-            errors = form.errors.as_json()
-            return JsonResponse({'success': False, 'errors': errors})
-    else:
-        form = UserRegistrationForm()
-    return render(request, "register.html", {"form": form})
+# def registration_form(request):
+#     if request.method == "POST":
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.instance.username = form.instance.email
+#             user = form.save()
+#             auth_login(request, user, backend='ecommerce.backends.EmailBackend')
+#             return JsonResponse({'success': True, 'redirect_url': reverse('main_page')})
+#         else:
+#             print("FORM IS INVALID")
+#             errors = form.errors.as_json()
+#             print(errors)
+#             return JsonResponse({'success': False, 'errors': errors, 'form': str(form)})
+#     else:
+#         form = UserRegistrationForm()
+#     return render(request, "register.html", {"form": form})
 
 
 

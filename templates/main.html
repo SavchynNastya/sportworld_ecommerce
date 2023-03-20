@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
+{% block header_content %}
+    <div class="search__container">
+        <form action="" class="search__container-form">
+            <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
+            <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
+        </form>
+    </div>
+{% endblock header_content %}
+
 {% block content %}
     <main class="main__section-main__page">
         <!-- <div class="wrapper"> -->
