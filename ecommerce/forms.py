@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from .backends import EmailBackend
+from .models import Subcategory, Category
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -54,40 +55,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         self.fields.pop('username', None)
         self.fields['remember_me'].widget.attrs.update({'class': 'form-check-input'})
 
-    # def clean(self):
-    #     email = self.cleaned_data.get('email')
-    #     password = self.cleaned_data.get('password')
-    #     username = self.changed_data.get('email')
 
-    #     if email is not None and password:
-    #         UserModel = get_user_model()
-    #         try:
-    #             user = UserModel.objects.get(email=email)
-    #         except UserModel.DoesNotExist:
-    #             raise forms.ValidationError(
-    #                 self.error_messages['invalid_login'],
-    #                 code='invalid_login',
-    #                 params={'email': self.username_field.verbose_name},
-    #             )
-
-    #         if not user.check_password(password):
-    #             raise forms.ValidationError(
-    #                 self.error_messages['invalid_login'],
-    #                 code='invalid_login',
-    #                 params={'email': self.username_field.verbose_name},
-    #             )
-
-    #         if not self.user_can_authenticate(user):
-    #             raise forms.ValidationError(
-    #                 self.error_messages['inactive'],
-    #                 code='inactive',
-    #             )
-
-    #     return self.cleaned_data
-    # def clean(self):
-    #     user = User.objects.get(email=self.cleaned_data.get('email'))
-    #     self.cleaned_data['username'] = user.email
-    #     return super(CustomAuthenticationForm, self).clean()
     def clean(self):
         cleaned_data = super().clean()
         
@@ -112,46 +80,45 @@ class CustomAuthenticationForm(AuthenticationForm):
 
         return cleaned_data
 
-# class PasswordResetForm(PasswordResetForm):
-#     email = forms.EmailField(required=True, label='Електронна пошта')
+class PasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(required=True, label='Електронна пошта')
 
-#     def clean(self):
-#         email = self.cleaned_data.get('email')
-#         if not User.objects.filter(email=email).exists():
-#             self.add_error('email', "За даною електронною поштою не знайдено користувача.")
-#             raise forms.ValidationError("За даною електронною поштою не знайдено користувача.")
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            self.add_error('email', "За даною електронною поштою не знайдено користувача.")
+            raise forms.ValidationError("За даною електронною поштою не знайдено користувача.")
 
 
-# class SetPasswordResetForm(SetPasswordForm):
-#     new_password1 = forms.CharField(
-#         label='Пароль',
-#         help_text=False,
-#         max_length=100,
-#         required=True,
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-reset',
-#                 'placeholder': 'Введіть пароль',
-#                 'type': 'password',
-#                 'id': 'user_password',
-#             }
-#         ))
+class SetPasswordResetForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label='Пароль',
+        help_text=False,
+        max_length=100,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-reset',
+                'placeholder': 'Введіть пароль',
+                'type': 'password',
+                'id': 'user_password',
+            }
+        ))
 
-#     new_password2 = forms.CharField(
-#         label='Підтвердіть пароль',
-#         help_text=False,
-#         max_length=100,
-#         required=True,
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-reset',
-#                 'placeholder': 'Введіть пароль ще раз',
-#                 'type': 'password',
-#                 'id': 'user_password',
-#             }
-#         ))
+    new_password2 = forms.CharField(
+        label='Підтвердіть пароль',
+        help_text=False,
+        max_length=100,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-reset',
+                'placeholder': 'Введіть пароль ще раз',
+                'type': 'password',
+                'id': 'user_password2',
+            }
+        ))
         
-#     error_messages = {
-#         'password_mismatch': 'Паролі не співпадають.'
-#     }
-
+    error_messages = {
+        'password_mismatch': 'Паролі не співпадають.'
+    }

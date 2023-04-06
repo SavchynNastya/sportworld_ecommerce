@@ -2,7 +2,7 @@
 
 {% block header_content %}
     <div class="search__container">
-        <form action="" class="search__container-form">
+        <form action="{% url 'main_page' %}" class="search__container-form">
             <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
             <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
         </form>
@@ -15,46 +15,97 @@
             <h1 class="page__heading">Кошик</h1>
             <p class="cart__items__quanity">Всього: <span class="quantity-value">1</span></p>
             <div class="cart__container">
+                {% if cart_items %}
                 <div class="cart__items__container">
-                    <div class="cart__item__card">
+                    {% for cart_item in cart_items %}
+                    <div class="cart__item__card" data-id="{{ cart_item.item.id }}">
+                        {% if request.user.is_authenticated %}
                         <div class="cart__card__content">
-                            <div class="cart__img__container" onclick="location.href='/item_page';">
-                                <img src="../static/img/item_img.jpg" alt="item_img" class="cart__item__img">
-                            </div>
+                            <a href="{% url 'product_page' item_id=cart_item.item.id %}">
+                                <div class="cart__img__container">
+                                    <img src="../media/{{ cart_item.item.image }}" alt="{{ cart_item.item.name }}" class="cart__item__img">
+                                </div>
+                            </a>
                             <div class="cart__control__buttons">
-                                <button class="cart__like__item-button">
-                                    <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                                <button class="cart__like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
+                                    <!-- <a href="{% url 'add_to_liked' item_id=cart_item.item.id %}" > -->
+                                        <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
+                                    <!-- </a> -->
                                 </button>
                                 <button class="cart__delete__item-button">
-                                    <img src="../static/img/svg/delete-item.svg" alt="delete__item" class="delete__item">
+                                    <a href="{% url 'delete_from_cart' item_id=cart_item.item.id %}">
+                                        <img src="../static/img/svg/delete-item.svg" alt="delete__item" class="delete__item">
+                                    </a>                               
                                 </button>
                             </div>
                             <div class="cart__item__info">
-                                <p class="cart__item__name">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</p>
+                                <a href="{% url 'product_page' item_id=cart_item.item.id %}">
+                                    <p class="cart__item__name">{{ cart_item.item.name }}</p>
+                                </a>
                                 <p class="cart__item__desc-short">
-                                    Whey Protein від Power Pro – ситний, знежирений протеїновий коктейль з ніжним смаком та ароматом. Запатентована компанією Power Pro пудроподібна текстура протеїну повністю, без грудок, розчиняється не тільки в молоці, але й у воді, зберігаючи коктейль таким же смачним і таким, що насичує.
+                                    {{ cart_item.item.description|truncatechars:290|default:'' }}
                                 </p>
                                 <div class="cart__summary-row">
-                                    <span class="item__cost cart__item__cost">860 UAH</span>
+                                    <span class="item__cost cart__item__cost"><span>{{ cart_item.item.price|floatformat:0 }}</span> UAH</span>
                                     <span class="cart__quantity">
                                         <span class="cart__quantity-text">Кількість</span>
-                                        <input type="text" class="items__quantity-input" value="3" name="items__quantity" readonly/>
+                                        <input type="text" class="items__quantity-input" value="{{ cart_item.quantity }}" name="items__quantity" readonly/>
                                         <button class="change__quantity increase">+</button>
                                         <button class="change__quantity decrease">-</button>
                                     </span>
                                     <span class="cart__summary__pricing">
                                         <span class="cart__summary__pricing-text">Всього:</span>
-                                        <span class="cart__summary__pricing-value">2448 UAH</span>
+                                        <span class="cart__summary__pricing-value"><span id="value"></span> UAH</span>
                                     </span>
                                 </div>
                             </div>
-                            
                         </div>
+                        {% else %}
+                        <div class="cart__card__content">
+                            <a href="{% url 'product_page' item_id=cart_item.item.id %}">
+                                <div class="cart__img__container">
+                                    <img src="../media/{{ cart_item.item.image }}" alt="{{ cart_item.item.name }}" class="cart__item__img">
+                                </div>
+                            </a>
+                            <div class="cart__control__buttons">
+                                <button class="cart__like__item-button">
+                                    <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
+                                </button>
+                                <button class="cart__delete__item-button">
+                                    <a href="{% url 'delete_from_cart_session' item_id=cart_item.item.id %}">
+                                        <img src="../static/img/svg/delete-item.svg" alt="delete__item" class="delete__item">
+                                    </a>
+                                </button>
+                            </div>
+                            <div class="cart__item__info">
+                                <a href="{% url 'product_page' item_id=cart_item.item.id %}">
+                                    <p class="cart__item__name">{{ cart_item.item.name }}</p>
+                                </a>
+                                <p class="cart__item__desc-short">
+                                    {{ cart_item.item.description|truncatechars:290|default:'' }}
+                                </p>
+                                <div class="cart__summary-row">
+                                    <span class="item__cost cart__item__cost"><span>{{ cart_item.item.price|floatformat:0 }}</span> UAH</span>
+                                    <span class="cart__quantity">
+                                        <span class="cart__quantity-text">Кількість</span>
+                                        <input type="text" class="items__quantity-input" value="{{ cart_item.quantity }}" name="items__quantity" readonly/>
+                                        <button class="change__quantity increase">+</button>
+                                        <button class="change__quantity decrease">-</button>
+                                    </span>
+                                    <span class="cart__summary__pricing">
+                                        <span class="cart__summary__pricing-text">Всього:</span>
+                                        <span class="cart__summary__pricing-value"><span id="value"></span> UAH</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                 </div>
                 <div class="cart__summary">
                     <div class="cart__summary__block">
-                        <p class="cart__summary-text">Загальна ціна товарів: <span class="cart__summary-value">2448 UAH</span></p>
+                        <p class="cart__summary-text">Загальна ціна товарів: <span class="cart__summary-value"><span id="total-value"></span> UAH</span></p>
                     </div>
                     <p class="select__payment">Оберіть зручний спосіб оплати</p>
                     <div class="payment__methods">
@@ -63,6 +114,12 @@
                         <img src="../static/img/svg/visa.svg" alt="payment method" class="method">
                     </div>
                 </div>
+                {% else %}
+                <div class="empty">
+                    <h2 class="empty-message">У кошику ще немає товарів</h2>
+                    <a class="empty-link" href="{% url 'main_page' %}">На головну сторінку</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </main>

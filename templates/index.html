@@ -76,7 +76,7 @@
                     <div class="about__items-card">
                         <figure class="about__items-figure">
                             <img src="../static/img/about-items-card1.jpg" alt="about-items-card1" class="about__items-img">
-                            <figcaption class="about__items-caption">Все для професійного спорту</figcaption>
+                            <figcaption class="about__items-caption">Спортивне харчування</figcaption>
                         </figure>
                         <ul class="about__items-list">
                             <li class="about__items-list-item">Протеїн</li>
@@ -93,7 +93,7 @@
                     <div class="about__items-card">
                         <figure class="about__items-figure">
                             <img src="../static/img/about-items-card2.jpg" alt="about-items-card1" class="about__items-img">
-                            <figcaption class="about__items-caption">Спортивне харчування</figcaption>
+                            <figcaption class="about__items-caption">Все для професійного спорту</figcaption>
                         </figure>
                         <ul class="about__items-list">
                             <li class="about__items-list-item">Брендові м'ячі</li>
@@ -172,12 +172,12 @@
                         <div class="card">
                             <div class="item__card" >
                                 <button class="like__item-button">
-                                    <img src="../static/img/svg/item_like.svg" alt="like__item" class="like__item">
+                                    <img src="{% if item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                                 </button>
                                 <button class="add-to-cart-button">
                                     <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
                                 </button>
-                                <div class="card__content" onclick="location.href='item_page.html';">
+                                <div class="card__content">
                                     <div class="img__container">
                                         <img src="../static/img/item_img.jpg" alt="item_img" class="item__img">
                                     </div>

@@ -127,21 +127,22 @@
 })();
 
 
-(function () {
-  const likeItemButton = document.querySelectorAll(".like__item-button");
-  console.log(likeItemButton);
-  likeItemButton.forEach((likeButton) => {
-    likeButton.addEventListener("click", () => {
-      let likeButtonIcon = likeButton.querySelector(".like__item");
-      console.log(likeButtonIcon);
-      if (likeButtonIcon.src.includes("../static/img/svg/item_liked.svg")) {
-        likeButtonIcon.src = "../static/img/svg/item_like.svg";
-      } else {
-        likeButtonIcon.src = "../static/img/svg/item_liked.svg";
-      }
-    });
-  });
-})(); // pipez
+// (function () {
+//   const likeItemButton = document.querySelectorAll(".like__item-button");
+//   console.log(likeItemButton);
+//   likeItemButton.forEach((likeButton) => {
+//     likeButton.addEventListener("click", () => {
+//       let likeButtonIcon = likeButton.querySelector(".like__item");
+//       console.log(likeButtonIcon);
+//       if (likeButtonIcon.src.includes("/static/img/svg/item_liked.svg")) {
+//         likeButtonIcon.src = "/static/img/svg/item_like.svg";
+//         return;
+//       } else {
+//         likeButtonIcon.src = "/static/img/svg/item_liked.svg";
+//       }
+//     });
+//   });
+// })(); 
 
 
 // (function (){

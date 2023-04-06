@@ -12,15 +12,31 @@ function showPassword() {
   }
 }
 
+// function setCookies(cookies) {
+//   const cookieNames = Object.keys(cookies);
+//   cookieNames.forEach(function (cookieName) {
+//     const cookieValue = encodeURIComponent(cookies[cookieName]);
+//     const cookieString = `${cookieName}=${cookieValue}; path=/; charset=utf-8`;
+//     document.cookie = cookieString;
+//     console.log(document.cookie)
+//   });
+// }
+
 const modal = document.getElementById("modal");
-const openModalBtn = document.getElementById("open-modal");
+const openModalBtns = document.querySelectorAll(".open-modal");
+console.log(openModalBtns);
 const closeModalBtn = document.getElementById("close-modal");
 const modalTitle = document.getElementById("modal-title");
+// const modalFooter = document.getElementsByClassName("modal-footer");
+const modalFooterText = document.getElementById("modal-footer-text");
 const switchToRegisterLink = document.getElementById("switch-to-register");
+const forgotPasswordLink = document.getElementById("forgot-password");
 
 
-openModalBtn.addEventListener("click", function () {
-  modal.style.display = "block";
+openModalBtns.forEach((openModalBtn) => {
+  openModalBtn.addEventListener("click", function () {
+    modal.style.display = "block";
+  });
 });
 
 closeModalBtn.addEventListener("click", function () {
@@ -38,7 +54,17 @@ function submitForm(form, url, title) {
         if (contentType.includes('application/json')) {
           const response = JSON.parse(xhr.responseText);
           if (response.success) {
-            window.location.href = response.redirect_url;
+            if(response.message){
+              modalTitle.innerHTML = response.message;
+              const formContainer = form.parentElement;
+              formContainer.innerHTML = "";
+            }
+            if(response.redirect_url){
+              window.location.href = response.redirect_url;
+            }
+            
+            // let username_encoded = btoa(response.username);
+            // console.log(document.cookie)
           } else {
             const formHtml = xhr.responseText;
             const formContainer = form.parentElement;
@@ -89,42 +115,69 @@ const loginForm = document.getElementById("login-form");
 
 const registrationFormSubmitHandler = function (event) {
   event.preventDefault();
-  submitForm(loginForm.firstChild, "/registration-form/", "Register");
+  submitForm(loginForm.firstChild, "/registration-form/", "Реєстрація");
 };
 
 const loginFormSubmitHandler = function (event) {
   event.preventDefault();
-  submitForm(loginForm.firstChild, "/login/", "Login");
+  submitForm(loginForm.firstChild, "/login/", "Вхід");
 };
 
+const forgotPasswordFormSubmitHandler = function (event) {
+  event.preventDefault();
+  submitForm(loginForm.firstChild, "/password_reset/", "Відновити пароль");
+};
 
-openModalBtn.addEventListener("click", function () {
-  // const loginForm = document.getElementById("login-form");
-  // const modalTitle = document.getElementById("modal-title");
+function switchToForgotPasswordForm(){
+  forgotPasswordLink.style.display = "none";
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       loginForm.innerHTML = xhr.responseText;
-      modalTitle.innerHTML = "Login";
+      modalTitle.innerHTML = "Відновити пароль";
     }
   };
-  xhr.open("GET", "/login/");
+  xhr.open("GET", "/password_reset/");
   xhr.send();
 
-  loginForm.addEventListener("submit", loginFormSubmitHandler);
-});
+  loginForm.removeEventListener("submit", loginFormSubmitHandler);
+  loginForm.addEventListener("submit", forgotPasswordFormSubmitHandler);
+}
 
+
+openModalBtns.forEach((openModalBtn) => {
+  openModalBtn.addEventListener("click", function () {
+    // const loginForm = document.getElementById("login-form");
+    // const modalTitle = document.getElementById("modal-title");
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        loginForm.innerHTML = xhr.responseText;
+        modalTitle.innerHTML = "Вхід";
+      }
+    };
+    xhr.open("GET", "/login/");
+    xhr.send();
+
+    loginForm.addEventListener("submit", loginFormSubmitHandler);
+
+    forgotPasswordLink.addEventListener("click", switchToForgotPasswordForm);
+  });
+
+})
 
 function switchToRegisterForm() {
   // const loginForm = document.getElementById("login-form");
   // const modalTitle = document.getElementById("modal-title");
+  forgotPasswordLink.style.display = "none";
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       loginForm.innerHTML = xhr.responseText;
-      modalTitle.innerHTML = "Register";
+      modalTitle.innerHTML = "Реєстрація";
     }
   };
   xhr.open("GET", "/registration-form/");
@@ -133,7 +186,8 @@ function switchToRegisterForm() {
   loginForm.removeEventListener("submit", loginFormSubmitHandler);
   loginForm.addEventListener("submit", registrationFormSubmitHandler);
 
-  switchToRegisterLink.innerHTML = "Login";
+  modalFooterText.innerHTML = "Вже маєте акаунт?";
+  switchToRegisterLink.innerHTML = "Увійти";
   switchToRegisterLink.removeEventListener("click", switchToRegisterForm);
   switchToRegisterLink.addEventListener("click", switchToLoginForm);
 }
@@ -141,12 +195,13 @@ function switchToRegisterForm() {
 function switchToLoginForm() {
   // const loginForm = document.getElementById("login-form");
   // const modalTitle = document.getElementById("modal-title");
+  forgotPasswordLink.style.display = "block";
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       loginForm.innerHTML = xhr.responseText;
-      modalTitle.innerHTML = "Login";
+      modalTitle.innerHTML = "Вхід";
     }
   };
   xhr.open("GET", "/login/");
@@ -155,10 +210,12 @@ function switchToLoginForm() {
   loginForm.removeEventListener("submit", registrationFormSubmitHandler);
   loginForm.addEventListener("submit", loginFormSubmitHandler);
 
-  switchToRegisterLink.innerHTML = "Register";
+  modalFooterText.innerHTML = "Уперше тут?";
+  switchToRegisterLink.innerHTML = "Зареєструватися";
   switchToRegisterLink.removeEventListener("click", switchToLoginForm);
   switchToRegisterLink.addEventListener("click", switchToRegisterForm);
-
+  forgotPasswordLink.addEventListener("click", switchToForgotPasswordForm);
 }
 
 switchToRegisterLink.addEventListener("click", switchToRegisterForm);
+

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SportWorld</title>
+    <base href="/">
     <link rel="stylesheet" href="../static/css/base.css">
     {% block stylesheets %}
     {% endblock stylesheets %}
@@ -32,16 +33,25 @@
             {% block header_content-sm-screen %}
             {% endblock header_content-sm-screen %}
 
-            {% if user.is_authenticated %}
-            <li class="header__icon_item">
+            <li class="header__icon_item {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
+                {% if user.is_authenticated %}
+                <a href="{% url 'liked_items' %}">
+                    <img src="../static/img/svg/nav_like.svg" class="header__icon" alt="like__icon"/>
+                    <p class="nav__link-name">Вподобані товари</p>
+                </a>
+                {% else %}
                 <img src="../static/img/svg/nav_like.svg" class="header__icon" alt="like__icon"/>
-                <a href="{% url 'liked_items' %}" class="nav__link-name">Вподобані товари</a>
+                <p class="nav__link-name">Вподобані товари</p>
+                {% endif %}
             </li>
             <li class="header__icon_item">
-                <img src="../static/img/svg/cart.svg" class="header__icon" alt="cart__icon"/>
-                <a href="{% url 'cart' %}" class="nav__link-name">Кошик</a>
+                <a href="{% url 'cart' %}">
+                    <img src="../static/img/svg/cart.svg" class="header__icon" alt="cart__icon"/>
+                    <p class="nav__link-name">Кошик</p>
+                </a>
             </li>
             
+            {% if user.is_authenticated %}
             <li class="header__icon_item">
                 <a href="{% url 'logout' %}?next=../" class="">
                     <img src="../static/img/svg/logout.svg" class="header__icon" alt="logout__exit__icon" />
@@ -49,7 +59,7 @@
                 </a>
             </li>
             {% else %}
-            <li class="header__icon_item" id="open-modal">
+            <li class="header__icon_item open-modal">
                 <img src="../static/img/svg/profile.svg" class="header__icon" alt="profile__icon" />
                 <a href="#" class="nav__link-name">Авторизуватися</a>
             </li>
@@ -61,17 +71,18 @@
         </ul>
     </header>
     <div id="modal">
-    <div class="modal-content">
-        <button id="close-modal">&times;</button>
-        <div class="modal-header">
-            <h2 id="modal-title">Login</h2>
-        </div>
-        <div id="login-form">
-            {% include 'login.html' %}
-        </div>
-        <div class="modal-footer">
-            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
-        </div>
+        <div class="modal-content">
+            <button id="close-modal">&times;</button>
+            <div class="modal-header">
+                <h2 id="modal-title">Вхід</h2>
+            </div>
+            <div id="login-form">
+                {% include 'login.html' %}
+            </div>
+            <div class="modal-footer">
+                <p><a href="#" id="forgot-password">Забули пароль?</a></p>
+                <p><span id="modal-footer-text">Уперше тут? </span><a href="#" id="switch-to-register">Зареєструватися</a></p>
+            </div>
         </div>
     </div>
     <main class="main">

@@ -14,6 +14,13 @@
 	row-gap: 2.44vh;
 	margin-bottom: 6.25rem;
 }
+.liked__items__container:has(.liked__items__container-no-items){
+	display: block;
+}
+.liked__items__container{
+	margin-top: 10rem;
+	margin-bottom: 12rem;
+}
 @media screen and (max-width: 1342px) {
 	.liked__items__container {
 		grid-template-columns: repeat(4, 1fr);

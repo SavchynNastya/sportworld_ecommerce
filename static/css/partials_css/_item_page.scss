@@ -23,6 +23,7 @@
 .item-page__item__content {
 	display: flex;
 	margin-bottom: 3.125rem;
+	justify-content: space-between;
 }
 .item-page__item__img {
 	height: 600px;
@@ -94,6 +95,8 @@
 	font-weight: 500;
 	font-size: 1rem;
 	line-height: 1.5rem;
+	display: flex;
+	align-items: center;
 	letter-spacing: -0.2px;
 	color: #FFFFFF;
 	padding: 1.25rem 1.25rem 1.25rem 3.625rem;
@@ -115,9 +118,6 @@
   display: flex;
   background-color: rgba(239, 101, 1, 0.85);
   cursor: pointer; 
-}
-.item-page-like{
-  margin-right: 10px; 
 }
 .item-page__item__advantages {
 	display: flex;
@@ -157,10 +157,41 @@
 		display: block;
 	}
 }
-@media screen and (max-width: 1400px) {
-	.item-page__item__content {
-		justify-content: center;
-	}
+// @media screen and (max-width: 1400px) {
+// 	.item__page-main .wrapper{
+// 		margin: 0 auto;
+// 	}
+// 	.item-page__item__heading{
+// 		max-width: fit-content;
+// 	}
+// 	.item-page__item__img {
+// 		height: 400px;
+// 		width: 400px;
+// 		margin-right: 4rem;
+// 	}
+// 	.item-page__add_text {
+// 		display: none;
+// 	}
+// 	.item-page-like{
+// 		margin-right: 0; 
+// 	}
+// 	.item-page__add__to__liked {
+// 		padding: 1.25rem;
+// 	}
+// 	.item-page__item__advantage {
+// 		padding: 0.5rem 0 0.5rem 4.3rem;
+// 	}
+// 	.item-page__item__available {
+// 		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+// 		border-radius: 15px;
+// 		padding: 0.5rem 1rem 0.5rem 2.8rem;
+// 	}
+// 	.item-page__item__info {
+// 		align-self: start;
+// 	}
+// }
+
+@media screen and (max-width: 1390px){
 	.item-page__item__img {
 		height: 400px;
 		width: 400px;
@@ -169,26 +200,9 @@
 	.item-page__add_text {
 		display: none;
 	}
-	.item-page-like{
-		margin-right: 0; 
-	}
-	.item-page__add__to__liked {
-		padding: 1.25rem;
-	}
-	.item-page__item__advantage {
-		padding: 0.5rem 0 0.5rem 4.3rem;
-	}
-	.item-page__item__available {
-		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-		border-radius: 15px;
-		padding: 0.5rem 1rem 0.5rem 2.8rem;
-	}
 	.item-page__item__info {
 		align-self: start;
 	}
-}
-
-@media screen and (max-width: 1390px){
 	.item-page__item__desc-text{
 		line-height: 1.6rem;
 	}

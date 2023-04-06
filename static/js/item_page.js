@@ -43,16 +43,29 @@ descHeadings.forEach((descHeading) => {
   // }
 })();
 
-function likeItemPage(){
-  const likeButton = document.querySelector(
-    ".item-page__add__to__liked"
-  );
-  likeButton.addEventListener("click", () => {
-    const likeIcon = likeButton.querySelector(".item-page-like");
-    if(likeIcon.src.includes("/img/svg/heart_item-page.svg")) {
-      likeIcon.src = "img/svg/heart_item-page-liked.svg";
-    } else {
-      likeIcon.src = "img/svg/heart_item-page.svg";
-    }
+(function () {
+  const itemCard = document.querySelector(".item__page__item__full-info");
+    console.log(itemCard);
+    const likeItemButton = itemCard.querySelector(".item-page__add__to__liked");
+    likeItemButton.addEventListener("click", () => {
+      const itemId = itemCard.dataset.id;
+      console.log(itemId);
+
+    fetch(`/add-to-liked/${itemId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        let likeButtonIcon = likeItemButton.querySelector(".item-page-like");
+        console.log(data);
+        if (data.liked) {
+          likeButtonIcon.src = "../static/img/svg/heart_item-page-liked.svg";
+        } else {
+          likeButtonIcon.src = "../static/img/svg/heart_item-page.svg";
+        }
+
+        if (window.location.href.includes("/liked/")) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => console.error(error));
   });
-}
+})();

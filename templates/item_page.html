@@ -2,7 +2,7 @@
 
 {% block header_content %}
     <div class="search__container">
-        <form action="" class="search__container-form">
+        <form action="{% url 'main_page' %}" class="search__container-form">
             <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
             <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
         </form>
@@ -12,30 +12,30 @@
 {% block content %}
     <main class="main item__page-main">
         <div class="wrapper">
-            <h1 class="item-page__item__heading">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</h1>
+            <h1 class="item-page__item__heading">{{ item.name }}</h1>
             <div class="item-page__item__content">
-                <img src="../static/img/item-img-lg.jpg" alt="Item Image" class="item-page__item__img">
-                <h1 class="item-page__item__heading__sm-screen">Соєвий протеїн зі смаком шоколаду PowerPro 1000г</h1>
-                <div class="item__page__item__full-info">
+                <img src="../media/{{ item.image }}" alt="Item Image" class="item-page__item__img">
+                <h1 class="item-page__item__heading__sm-screen">{{ item.name }}</h1>
+                <div class="item__page__item__full-info" data-id="{{ item.id }}">
                     <div class="item-page__item__info">
                         <div class="item-page__item__desc">
                             <p class="item-page__item__desc-heading">Опис товару<span class="item-page__tick"></span></p>
-                            <p class="item-page__item__desc-text">Whey Protein від Power Pro – ситний, знежирений протеїновий коктейль з ніжним смаком та ароматом. Запатентована компанією Power Pro пудроподібна текстура протеїну повністю, без грудок, розчиняється не тільки в молоці, але й у воді, зберігаючи коктейль таким же смачним і таким, що насичує.
-                            Містить ізолят сироваткового протеїну - більше 90% чистого білка без жиру, холестерину та лактози (молочного цукру), гідролізат сироваткового протеїну, концентрат сироваткового протеїну. Проста формула без важких компонентів дозволяє швидше засвоюватися м'язами. Ефективна добавка для промальовування рельєфу та захисту м'язів від руйнування після тренування.
-                            До складу коктейлю входить урсолова кислота, яка має низку майже магічних якостей.</p>
+                            <p class="item-page__item__desc-text">{{ item.description }}</p>
                         </div>
                         <div class="item-page__item__price">
                             <div class="item-page__item__price__info">
                                 <p class="item-page__item__price-heading">Ціна: </p>
-                                <p class="item-page__item__price-value">816 UAH</p>
+                                <p class="item-page__item__price-value"><span>{{ item.price }}</span> UAH</p>
                             </div>
                             <div class="item-page__item__available">
                                 <p class="item-page__item__available-text">В наявності</p>
                             </div>
                         </div>
                         <div class="item-page__item__buttons">
-                            <button class="item-page__add__to__cart">Додати до кошика</button>
-                            <button class="item-page__add__to__liked" onclick="likeItemPage()"><img src="../static/img/svg/heart_item-page.svg" alt="" class="item-page-like"><p class="item-page__add_text">Додати до вподобаних товарів</p></button>
+                            <a href="{% url 'add_to_cart' item_id=item.id %}" class="item-page__add__to__cart">Додати до кошика</a>
+                            <!-- <a href="{% url 'add_to_liked' item_id=item.id %}"> -->
+                                <button class="item-page__add__to__liked {% if user.is_authenticated %}{% else %}open-modal{% endif %}"><img src="{% if item in liked_items %}../static/img/svg/heart_item-page-liked.svg{% else %}../static/img/svg/heart_item-page.svg{% endif %}" alt="" class="item-page-like"></button>
+                            <!-- </a> -->
                         </div>
                     </div>
                     <div class="item-page__item__advantages">

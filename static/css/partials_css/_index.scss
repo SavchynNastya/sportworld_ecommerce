@@ -163,10 +163,9 @@
 }
 .about__items-caption {
 	background: rgba(217, 217, 217, 0.7);
-	font-size: 1rem;
+	font-size: 1.103rem;
 	font-weight: 500;
 	line-height: 1.625rem;
-	letter-spacing: 0.05em;
 	color: #000000;
 	padding: 1rem 0.75rem;
 	width: 100%;
@@ -262,7 +261,7 @@
 	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 500;
-	font-size: 2.625rem;
+	font-size: 2.574rem;
 	line-height: 2.875rem;
 	text-transform: uppercase;
 }
@@ -467,7 +466,7 @@
 
 @media screen and (max-width: 1390px){
     html{
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
     .advantages__cards{
         max-width: 80%;

@@ -140,3 +140,19 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_USERNAME_REQUIRED = False
 # USERNAME_FIELD = 'email'
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "sportwrld023@gmail.com"
+EMAIL_HOST_PASSWORD = "qiwcxqxgzydumhio"
+
+# enable cyrillic cookies
+# SESSION_COOKIE_HTTPONLY = False
+# SESSION_COOKIE_SECURE = False
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
