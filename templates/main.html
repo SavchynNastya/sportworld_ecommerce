@@ -152,12 +152,9 @@
         <div class="items wrapper">
             <div class="items__container">
                 {% for item in items %}
-                <!-- <a href="{% url 'product_page' item_id=item.id %}"> -->
                     <div class="main__item__card" data-price="{{ item.price }}" data-id="{{ item.id }}">
                         <button class="main__like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
-                            <!-- <a href="{% url 'add_to_liked' item_id=item.id %}"> -->
-                                <img src="{% if item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
-                            <!-- </a> -->
+                            <img src="{% if item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                         </button>
                         <button class="main__add-to-cart-button">
                             <a href="{% url 'add_to_cart' item_id=item.id %}" class="">
@@ -170,7 +167,7 @@
                             </div>
                             <div class="main__item__info">
                                 <a href="{% url 'product_page' item_id=item.id %}">
-                                    <p class="main__item__name">{{ item.name }}</p>
+                                    <p class="main__item__name">{{ item.name|truncatechars:54|default:'' }}</p>
                                 </a>
                                 <p class="main__item__cost">{{ item.price|floatformat:0  }} UAH</p>
                             </div>

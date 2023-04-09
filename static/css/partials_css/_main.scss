@@ -442,13 +442,10 @@ span.dot {
 	}
 }
 @media screen and (max-width: 1390px){
-	// .items__container {
-	// 	grid-template-columns: repeat(4, auto);
-	// 	max-width: 1000px;
-	// 	margin: 0 auto; 
-	// 	row-gap: 1.923rem;
-	// 	column-gap: 1.923rem;
-	// } 
+	.items__container {
+		grid-template-columns: repeat(5, 1fr);
+		max-width: 1170px;
+	} 
 
 	.slider__full{
 		margin-top: 10rem;

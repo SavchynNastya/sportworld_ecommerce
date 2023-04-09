@@ -20,7 +20,10 @@ urlpatterns = [
      path('increment-cart-item/<int:item_id>/',views.increment_cart_item, name='increment_cart_item'),
      path('decrement-cart-item/<int:item_id>/',views.decrement_cart_item, name='decrement_cart_item'),
      
+     path('add-contact-number-to-profile/', views.add_contact_number_to_profile, name="add_contact_number"),
+     path('form-order/', views.form_order, name="form_order"),
      path('cart/', views.cart, name='cart'),
+     path('profile/', views.profile, name='profile'),
      path('registration-form/', views.CustomRegistrationView.as_view(template_name='register.html'), name='registration_form'),
      # path('registration-form/', views.registration_form, name='registration_form'),
      path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),

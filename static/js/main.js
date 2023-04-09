@@ -82,48 +82,6 @@
 })();
 
 
-// (function () {
-//   let activeSubcategory = localStorage.getItem("activeSubcategory");
-//   let activeCategory = localStorage.getItem("activeCategory");
-
-//   let categories = document.querySelectorAll(".category");
-//   let subcategories = document.querySelectorAll(".subcategory");
-
-//   categories.forEach((category) => {
-//     category.addEventListener("click", function () {
-//       categories.forEach((c) => c.classList.remove("active-category"));
-
-//       category.classList.add("active-category");
-//       localStorage.setItem("activeCategory", category.id);
-//     });
-//   });
-
-//   if (activeCategory) {
-//     let prevActive = document.getElementById(activeCategory);
-//     console.log(prevActive);
-//     if (prevActive) {
-//       categories.forEach((c) => c.classList.remove("active-category"));
-//       prevActive.classList.add("active-category");
-//     }
-//   }
-
-//   subcategories.forEach((subcategory) => {
-//     subcategory.addEventListener("click", function () {
-//       subcategories.forEach((c) => c.classList.remove("active-subcategory"));
-
-//       subcategory.classList.add("active-subcategory");
-//       localStorage.setItem("activeSubcategory", subcategory.id);
-//     });
-//   });
-//   if (activeSubcategory) {
-//     let prevActive = document.getElementById(activeSubcategory);
-//     if (prevActive) {
-//       subcategories.forEach((c) => c.classList.remove("active-subcategory"));
-//       prevActive.classList.add("active-subcategory");
-//     }
-//   }
-// })();
-
 const sortOrders = document.querySelectorAll('input[name="sort-orders"]');
 sortOrders.forEach((order) => {
   order.addEventListener("change", (event) => {
@@ -150,13 +108,6 @@ function sortItems(sortOrder) {
 
 (function () {
   var checkboxes = document.querySelectorAll(".checkbox__producer");
-  // var savedValues = localStorage.getItem("selected_producers");
-  // if (savedValues !== null) {
-  //   savedValues = JSON.parse(savedValues);
-  // }
-
-  // console.log(checkboxes);
-  // console.log(document.querySelectorAll(".checkbox__producer:checked"));
   checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
       var checkedValues = Array.from(
@@ -164,31 +115,20 @@ function sortItems(sortOrder) {
       ).map(function (checkbox) {
         return checkbox.value;
       });
-
-      // localStorage.setItem("selected_producers", JSON.stringify(checkedValues));
-
       var xhr = new XMLHttpRequest();
 
       var searchParams = new URLSearchParams(window.location.search);
       var categoryValue = searchParams.get("category");
       var subcategoryValue = searchParams.get("subcategory");
 
-      // if (checkedValues.length > 0) {
-      //   xhr.open("GET", "/main?producer=" + checkedValues.join("&producer="));
-      // } else {
-      //   xhr.open("GET", "/main");
-      // }
-
       let url = "/main";
 
       if (checkedValues.length > 0) {
         url += "?producer=" + checkedValues.join("&producer=");
       }
-
       if (categoryValue !== null) {
         url += (checkedValues.length > 0 ? "&" : "?") + "category=" + categoryValue;
       }
-
       if (subcategoryValue !== null) {
         url += (checkedValues.length > 0 || categoryValue !== null ? "&" : "?") +
           "subcategory=" +

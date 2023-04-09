@@ -106,3 +106,62 @@
   }
   // }
 })();
+
+(function (){
+  const openContactForm = document.querySelectorAll(".open-contact-form");
+  console.log(openContactForm);
+  const closeModal = document.getElementById("close-contact-modal");
+  let cookie = document.cookie;
+  let csrfToken = cookie.substring(cookie.indexOf("=") + 1);
+  csrfToken = csrfToken.substring(csrfToken.indexOf("=") + 1);
+  console.log(csrfToken);
+
+
+  var formContainer = document.getElementById("modal-contact");
+  var contactForm = document.getElementById("contact-form");
+
+  openContactForm.forEach((openForm) => {
+    openForm.addEventListener("click", function () {
+      formContainer.style.display = "block";
+    });
+  });
+
+  closeModal.addEventListener("click", function () {
+    formContainer.style.display = "none";
+  });
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const url = "form-order/";
+    // const contactNumber = document.getElementById("contact-number").value;
+    const contactNumber = document.getElementById("id_phone_number").value;
+    const countryCode = document.getElementById("id_country_code").value;
+    console.log(contactNumber)
+    console.log(countryCode)
+    const data = {
+      contact_number: contactNumber,
+      country_code: countryCode,
+    };
+    console.log(data)
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+      body: JSON.stringify(data),
+      credentials: "same-origin",
+    }).then((response) => {
+      if (response.ok) {
+        formContainer.style.display = "none";
+        alert("Замовлення сформовано успішно, очікуйте дзвінка");
+      } else {
+        alert("Сталася помилка");
+      }
+    });
+      // .catch((error) => {
+      //   // handle error
+      // });
+  });
+
+})();

@@ -41,7 +41,6 @@
     const menuCloseItem = document.querySelector('.header__nav-close');
     const menuLinks = document.querySelectorAll(".header__link");
     const menuIcons = document.querySelectorAll(".header__icon_item");
-    // const nameLinks = document.querySelectorAll(".nav__link-name");
     const hiddenLinks = document.querySelectorAll(".hidden__link");
     burgerItem.addEventListener('click', () => {
         menu.forEach(m => {
@@ -59,22 +58,20 @@
           link.classList.add("hidden__link_active");
         });
     });
-    // if (window.innerWidth < 768) {
-        for (let i=0; i < menuLinks.length; i+=1){
-            menuLinks[i].addEventListener('click', () => {
-                menu.forEach((m) => {
-                  m.classList.remove("header__nav_active");
-                });
-            });
-        }
-        for (let i = 0; i < menuIcons.length; i += 1) {
-          menuIcons[i].addEventListener("click", () => {
+    for (let i=0; i < menuLinks.length; i+=1){
+        menuLinks[i].addEventListener('click', () => {
             menu.forEach((m) => {
               m.classList.remove("header__nav_active");
             });
-          });
-        }
-    // }
+        });
+    }
+    for (let i = 0; i < menuIcons.length; i += 1) {
+      menuIcons[i].addEventListener("click", () => {
+        menu.forEach((m) => {
+          m.classList.remove("header__nav_active");
+        });
+      });
+    }
 }());
 
 
@@ -125,69 +122,5 @@
   });
 
 })();
-
-
-// (function () {
-//   const likeItemButton = document.querySelectorAll(".like__item-button");
-//   console.log(likeItemButton);
-//   likeItemButton.forEach((likeButton) => {
-//     likeButton.addEventListener("click", () => {
-//       let likeButtonIcon = likeButton.querySelector(".like__item");
-//       console.log(likeButtonIcon);
-//       if (likeButtonIcon.src.includes("/static/img/svg/item_liked.svg")) {
-//         likeButtonIcon.src = "/static/img/svg/item_like.svg";
-//         return;
-//       } else {
-//         likeButtonIcon.src = "/static/img/svg/item_liked.svg";
-//       }
-//     });
-//   });
-// })(); 
-
-
-// (function (){
-//   slides = document.querySelectorAll(".slide");
-//   dots = document.querySelectorAll(".dot");
-
-//   let index = 0;
-
-//   const activeSlide = (n) => {
-//     for (slide of slides) {
-//       slide.classList.remove("active__slide");
-//     }
-//     slides[n].classList.add("active__slide");
-//   };
-
-//   const nextSlide = () => {
-//     if (index == slides.length - 1) {
-//       index = 0;
-//       prepareCurrentSlide(index);
-//     } else {
-//       index++;
-//       prepareCurrentSlide(index);
-//     }
-//   };
-
-//   const activeDot = (n) => {
-//     for (dot of dots) {
-//       dot.classList.remove("active__dot");
-//     }
-//     dots[n].classList.add("active__dot");
-//   };
-
-//   const prepareCurrentSlide = (ind) => {
-//     activeSlide(ind);
-//     activeDot(ind);
-//   };
-
-//   dots.forEach((item, indexDot) => {
-//     item.addEventListener("click", () => {
-//       index = indexDot;
-//       prepareCurrentSlide(index);
-//     });
-//   });
-
-//   setInterval(nextSlide, 7000);
-// })
 
 

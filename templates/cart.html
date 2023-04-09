@@ -28,9 +28,7 @@
                             </a>
                             <div class="cart__control__buttons">
                                 <button class="cart__like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
-                                    <!-- <a href="{% url 'add_to_liked' item_id=cart_item.item.id %}" > -->
-                                        <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
-                                    <!-- </a> -->
+                                    <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                                 </button>
                                 <button class="cart__delete__item-button">
                                     <a href="{% url 'delete_from_cart' item_id=cart_item.item.id %}">
@@ -108,11 +106,40 @@
                         <p class="cart__summary-text">Загальна ціна товарів: <span class="cart__summary-value"><span id="total-value"></span> UAH</span></p>
                     </div>
                     <p class="select__payment">Оберіть зручний спосіб оплати</p>
+                    {% if request.user.is_authenticated %}
                     <div class="payment__methods">
-                        <img src="../static/img/svg/paypal.svg" alt="payment method" class="method">
-                        <img src="../static/img/svg/mastercard.svg" alt="payment method" class="method">
-                        <img src="../static/img/svg/visa.svg" alt="payment method" class="method">
+                        <a href="{% url 'form_order' %}" class="cart__form-order">
+                            <img src="../static/img/svg/paypal.svg" alt="payment method" class="method">
+                        </a>
+                        <a href="{% url 'form_order' %}" class="cart__form-order">
+                            <img src="../static/img/svg/mastercard.svg" alt="payment method" class="method">
+                        </a>
+                        <a href="{% url 'form_order' %}" class="cart__form-order">
+                            <img src="../static/img/svg/visa.svg" alt="payment method" class="method">
+                        </a>
                     </div>
+                    {% else %}
+                    <div class="payment__methods">
+                        <img src="../static/img/svg/paypal.svg" alt="payment method" class="method open-contact-form">
+                        <img src="../static/img/svg/mastercard.svg" alt="payment method" class="method open-contact-form">
+                        <img src="../static/img/svg/visa.svg" alt="payment method" class="method open-contact-form">
+                    </div>
+                    <div id="modal-contact" style="display: none;">
+                        <div class="modal-content">
+                            <button id="close-contact-modal">&times;</button>
+                            <div class="modal-header">
+                                <h2 id="modal-contact-title">Залиште номер, щоб з вами можна було зв'язатись</h2>
+                            </div>
+                            <form class="login__form" id="contact-form">
+                                {% csrf_token %}
+                                <p class="label__input">{{ contact_form.phone_number.label }}
+                                    <span class="contact_phone-box">{{ contact_form.country_code }}{{ contact_form.phone_number }}</span>
+                                </p>
+                                <button type="submit" class="enter-button">Надіслати</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 {% else %}
                 <div class="empty">

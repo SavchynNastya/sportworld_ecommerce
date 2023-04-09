@@ -14,7 +14,32 @@
         <div class="wrapper">
             <h1 class="item-page__item__heading">{{ item.name }}</h1>
             <div class="item-page__item__content">
-                <img src="../media/{{ item.image }}" alt="Item Image" class="item-page__item__img">
+                <div class="item-page__left-container">
+                    <img src="../media/{{ item.image }}" alt="Item Image" class="item-page__item__img">
+                    {% if reviews %}
+                    <div class="item-page__reviews-container">
+                        <p class="item-page__item__reviews-heading">Відгуки<span class="item-page__tick"></span></p>
+                        <div class="reviews__block">
+                            {% for review in reviews %}
+                            <div class="review-box">
+                                <p class="review-username">{{ review.user.first_name }} {{ review.user.last_name }}</p>
+                                <span class="review-timestamp">{{ review.date|date:"Y-m-d H:i" }}</span>
+                                <span class="rating-stars" data-rating="{{ review.rating }}">
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                </span>
+                                {% if review.message %}
+                                <p class="review-message">{{ review.message }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
                 <h1 class="item-page__item__heading__sm-screen">{{ item.name }}</h1>
                 <div class="item__page__item__full-info" data-id="{{ item.id }}">
                     <div class="item-page__item__info">
@@ -25,7 +50,7 @@
                         <div class="item-page__item__price">
                             <div class="item-page__item__price__info">
                                 <p class="item-page__item__price-heading">Ціна: </p>
-                                <p class="item-page__item__price-value"><span>{{ item.price }}</span> UAH</p>
+                                <p class="item-page__item__price-value"><span>{{ item.price|floatformat:0 }}</span> UAH</p>
                             </div>
                             <div class="item-page__item__available">
                                 <p class="item-page__item__available-text">В наявності</p>
@@ -38,6 +63,29 @@
                             <!-- </a> -->
                         </div>
                     </div>
+                    {% if reviews %}
+                    <div class="item-page__reviews-container-2">
+                        <p class="item-page__item__reviews-heading">Відгуки</p>
+                        <div class="reviews__block">
+                            {% for review in reviews %}
+                            <div class="review-box">
+                                <p class="review-username">{{ review.user.first_name }} {{ review.user.last_name }}</p>
+                                <span class="review-timestamp">{{ review.date|date:"Y-m-d H:i" }}</span>
+                                <span class="rating-stars" data-rating="{{ review.rating }}">
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                    <span class="star"></span>
+                                </span>
+                                {% if review.message %}
+                                <p class="review-message">{{ review.message }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="item-page__item__advantages">
                         <div class="item-page__item__advantage item-page__shipping_adv">
                             <p class="item-page__item__adv-heading">Швидка доставка</p>

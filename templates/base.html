@@ -53,6 +53,12 @@
             
             {% if user.is_authenticated %}
             <li class="header__icon_item">
+                <a href="{% url 'profile' %}">
+                    <img src="../static/img/svg/profile.svg" class="header__icon" alt="profile__icon" />
+                    <a href="{% url 'profile' %}" class="nav__link-name">Профіль</a>
+                </a>
+            </li>
+            <li class="header__icon_item">
                 <a href="{% url 'logout' %}?next=../" class="">
                     <img src="../static/img/svg/logout.svg" class="header__icon" alt="logout__exit__icon" />
                     <a href="{% url 'logout' %}?next=../" class="nav__link-name">Logout</a>

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block header_content %}
+    <div class="search__container">
+        <form action="{% url 'main_page' %}" class="search__container-form">
+            <input type="text" class="input__search-field" placeholder="Введіть назву товару..." name="search">
+            <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
+        </form>
+    </div>
+{% endblock header_content %}
+
+{% block content %}
+    <main class="main">
+        <div class="wrapper">
+            <div class="profile__user__info-card">
+                <h2 class="profile__username__heading">{{ user.first_name }} {{ user.last_name }}</h2>
+                <p class="profile__user-email">Електронна пошта: {{ user.email }}</p>
+                {% if profile.contact_number %}
+                    <p class="profile__user-email profile__contact-num">Номер телефону: {{ profile.contact_number }}</p>
+                {% else %}
+                    <button id="add_contact">Додати номер телефону</button>
+                {% endif %}
+            </div>
+
+            <h1 class="page__heading profile__page-heading">Мої замовлення</h1>
+            <div class="profile__orders-container">
+                {% for order in orders %}
+                <div class="order__container">
+                    <p class="order__timing">Замовлення - {{ order.ordered_date|date:"Y-m-d H:i" }}</p>
+                    <div class="order__item__card cart__item__card" >
+                        <div class="cart__card__content order__card__content">
+                            {% for order_item in order.orderitem_set.all %}
+                            <div class="cart__item__info order__item__info" data-id="{{ order_item.item.id }}">
+                                <p class="cart__item__name order__item__name">{{ order_item.item.name }}</p>
+                                <div class="order__info-block">
+                                    <div class="order__price">
+                                        <p class="item__cost">{{ order_item.item.price|floatformat:0  }} UAH</p>
+                                        <p class="order__item-quantity">x {{ order_item.quantity }}</p>
+                                    </div>
+                                    <button class="order__feedback open-review-form">Залишити відгук</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty liked__items__container-no-items">
+                    <h2 class="empty-message">У вас ще немає замовлень</h2>
+                    <a class="empty-link" href="{% url 'main_page' %}">На головну сторінку</a>
+                </div>
+                {% endfor %}
+                <div id="modal-review" style="display: none;">
+                    <div class="modal-content">
+                        <button id="close-review-modal">&times;</button>
+                        <div class="modal-header">
+                            <h2 id="modal-review-title">Оцініть якість товару</h2>
+                        </div>
+                        <form class="login__form" id="rating-form" method="">
+                            {% csrf_token %}
+                            {% for field in rating_form %}
+                                {% if field.name == 'rating' %}
+                                    <div class="stars">
+                                        {% for i in "12345" %}
+                                        <label for="star{{ i }}" class="star-label {% if field.value >= i %}filled{% endif %}">
+                                            <input type="radio" name="{{ field.name }}" id="star{{ i }}" value="{{ i }}"
+                                                {% if field.value == i %}checked{% endif %}>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <p class="label__input">{{ rating_form.message.label }}{{ rating_form.message }}</p>
+                            <button type="submit" class="enter-button">Надіслати</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="modal-contact" style="display: none;">
+                    <div class="modal-content">
+                        <button id="close-contact-modal">&times;</button>
+                        <div class="modal-header">
+                            <h2 id="modal-contact-title">Залиште номер, щоб з вами можна було зв'язатись</h2>
+                        </div>
+                        <form class="login__form" id="contact-form">
+                            {% csrf_token %}
+                            <p class="label__input">{{ contact_form.phone_number.label }}
+                                <span class="contact_phone-box">{{ contact_form.country_code }}{{ contact_form.phone_number }}</span>
+                            </p>
+                            <button type="submit" class="enter-button">Зберегти</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="../static/js/profile.js"></script>
+{% endblock scripts %}

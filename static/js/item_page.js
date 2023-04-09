@@ -19,6 +19,38 @@ descHeadings.forEach((descHeading) => {
 });
 
 
+const ratingStars = document.querySelectorAll(".rating-stars");
+ratingStars.forEach((ratingStarsSet) => {
+  const rating = ratingStarsSet.dataset.rating;
+
+  for (let i = 0; i < rating; i++) {
+    ratingStarsSet.children[i].classList.add("star-filled");
+  }
+})
+
+// if(window.innerWidth > 572){
+//   const openReviews = document.querySelector(".item-page__item__reviews-heading");
+//   const openDesc = document.querySelector(".item-page__item__desc-heading");
+
+//   const descContent = document.querySelector(".item-page__item__desc-text");
+//   const reviewsContent = document.querySelector(".reviews__block");
+
+//   openDesc.addEventListener('click', () => {
+//     descContent.style.display = "block";
+//     reviewsContent.style.display = "none";
+//     openDesc.classList.remove("heading__unactive");
+//     openReviews.classList.add("heading__unactive");
+//   });
+
+//   openReviews.addEventListener("click", () => {
+//     reviewsContent.style.display = "block";
+//     descContent.style.display = "none";
+//     openReviews.classList.remove("heading__unactive");
+//     openDesc.classList.add("heading__unactive");
+//   });
+// }
+
+
 (function () {
   const burgerItem = document.querySelector(".burger");
   const menu = document.querySelector(".nav__links");

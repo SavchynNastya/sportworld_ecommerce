@@ -1,12 +1,13 @@
+from decimal import Decimal
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponseRedirect, HttpResponse
-from .forms import UserRegistrationForm, CustomAuthenticationForm, PasswordResetForm, SetPasswordResetForm
+from .forms import ContactForm, ReviewForm, UserRegistrationForm, CustomAuthenticationForm, PasswordResetForm, SetPasswordResetForm
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView
-from django.contrib.sessions.models import Session
 from django.contrib.auth import login as auth_login, logout
 from django.urls import reverse_lazy, reverse
 from django.contrib.sites.shortcuts import get_current_site
@@ -19,10 +20,8 @@ from django.core.mail import send_mail, EmailMessage
 from django.db.models.query_utils import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
-# import json
 import re
-from urllib import parse
-from .models import Category, Profile, Subcategory, Item, Cart, CartItem, Producer
+from .models import Category, Order, OrderItem, Profile, Review, Subcategory, Item, Cart, CartItem, Producer
 
 
 class CustomLoginView(LoginView):
@@ -31,9 +30,6 @@ class CustomLoginView(LoginView):
     success_url = reverse_lazy('main_page')
 
     def form_valid(self, form):
-        # print(form.fields)
-        # print(form.is_valid())
-        # print(form.errors)
         remember_me = form.cleaned_data['remember_me']
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
@@ -51,12 +47,7 @@ class CustomLoginView(LoginView):
         return self.form_invalid(form)
     
     def form_invalid(self, form):
-        # print(form.fields)
-        # print(form.is_valid())
-        # print(form.errors)
-        # print(form.data)
         messages.error(self.request, 'Неправильний email чи пароль.')
-        # print(self.get_context_data(form=form))
         return self.render_to_response(self.get_context_data(form=form))
     
     def get_context_data(self, **kwargs):
@@ -80,9 +71,6 @@ class CustomRegistrationView(SuccessMessageMixin, CreateView):
         user.is_active = False
         user.save()
 
-        # auth_login(self.request, user, backend='ecommerce.backends.EmailBackend')
-        # user.backend = EmailBackend.__module__ + "." + EmailBackend.__qualname__
-        # return JsonResponse({'success': True, 'redirect_url': reverse('main_page')})
         current_site = get_current_site(self.request)  
         mail_subject = 'Посилання для активації акаунта SPORTWORLD'
 
@@ -100,7 +88,6 @@ class CustomRegistrationView(SuccessMessageMixin, CreateView):
         print(email_letter)
         email_letter.send()  
         return JsonResponse({'success': True, 'message': 'Будь ласка, підтвердіть вашу електронну адресу, щоб завершити реєстрацію.'})
-        # return HttpResponse('Будь ласка, підтвердіть вашу електронну адресу, щоб завершити реєстрацію.')
 
     def form_invalid(self, form):
         messages.error(self.request, 'Помилка при реєстрації. Будь ласка, перевірте введені дані.')
@@ -214,148 +201,9 @@ def reset_password_complete(request):
     return render(request, 'password_reset_complete.html')
 
 
-# def registration_form(request):
-#     if request.method == "POST":
-#         form = UserRegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.instance.username = form.instance.email
-#             user = form.save()
-#             auth_login(request, user, backend='ecommerce.backends.EmailBackend')
-#             return JsonResponse({'success': True, 'redirect_url': reverse('main_page')})
-#         else:
-#             print("FORM IS INVALID")
-#             errors = form.errors.as_json()
-#             print(errors)
-#             return JsonResponse({'success': False, 'errors': errors, 'form': str(form)})
-#     else:
-#         form = UserRegistrationForm()
-#     return render(request, "register.html", {"form": form})
-
-
-
-
-# def registration_form(request):
-#     if request.method == "POST":
-#         form = UserRegistrationForm(request.POST)
-#         print(form.errors.as_data())
-#         print(form.is_valid)
-#         if form.is_valid():
-#             form.instance.username = form.instance.email
-#             user = form.save()
-#             print(user)
-#             auth_login(request, user, backend='ecommerce.backends.EmailBackend')
-#             return redirect('main_page')
-#     else:
-#         form = UserRegistrationForm()
-
-#     # context = {'form': form}
-#     # if form.errors:
-#     #     context['errors'] = form.errors.as_data()
-
-#     return render(request, "register.html", {"form": form})
-
-
-
-
-# def login_view(request):
-#     if request.method == 'POST':
-#         print(request.POST)
-#         form = CustomAuthenticationForm(request.POST)
-#         print(form.errors.as_data())
-#         print(form.is_valid)
-#         print(form.declared_fields)
-#         if form.is_valid():
-#             user = form.get_user()
-#             auth_login(request, user, backend='ecommerce.backends.EmailBackend')
-#             return redirect('main_page')
-#     else:
-#         form = CustomAuthenticationForm()
-
-#     # context = {'form': form}
-#     # if form.errors:
-#     #     context['errors'] = form.errors.as_data()
-
-#     return render(request, 'login.html', {'form': form})
-
-# def logout_view(request):
-#     if request.method == 'POST':
-#         logout(request)
-#         return redirect('main_page')
-
-# def login(request):
-#     if request.method == 'POST':
-#         form = CustomAuthenticationForm(request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#             return redirect('main_page')
-#     else:
-#         form = CustomAuthenticationForm()
-#     return render(request, 'login.html', {'form': form})
-
-# def login_or_register(request):
-#     if request.method == 'POST':
-#         if 'login' in request.POST:
-#             form = CustomAuthenticationForm(request.POST)
-#             if form.is_valid():
-#                 username = form.cleaned_data.get('username')
-#                 password = form.cleaned_data.get('password')
-#                 user = authenticate(request, username=username, password=password)
-#                 if user is not None:
-#                     login(request, user)
-#                     return redirect('home')
-#                 else:
-#                     messages.error(request, 'Invalid username or password.')
-#                     return redirect('login_or_register')
-#         elif 'register' in request.POST:
-#             form = UserRegistrationForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 username = form.cleaned_data.get('username')
-#                 password = form.cleaned_data.get('password1')
-#                 user = authenticate(request, username=username, password=password)
-#                 if user is not None:
-#                     login(request, user)
-#                     return redirect('home')
-#                 else:
-#                     messages.error(request, 'An error occurred while trying to register.')
-#                     return redirect('login_or_register')
-#     else:
-#         form = CustomAuthenticationForm()
-
-#     return render(request, 'login_or_register.html', {'form': form})
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             return redirect('main_page')
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'registration.html', {'form': form})
-
-# def login(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('main_page')
-#     else:
-#         form = AuthenticationForm()
-#     return render(request, 'login.html', {'form': form})
-
-
 def landing_page(request):
-    return render(request, 'index.html')
+    bestsellers = Item.objects.filter(id__lte=12)
+    return render(request, 'index.html', {'bestsellers': bestsellers})
 
 
 def main_page(request):
@@ -373,7 +221,7 @@ def main_page(request):
     
 
     active_category = request.GET.get('category', '')
-    print(active_category)
+
     if active_category != '':
         subcategories = Subcategory.objects.filter(category=active_category)
         items = Item.objects.filter(subcategory__in=subcategories)
@@ -382,19 +230,12 @@ def main_page(request):
 
 
     active_subcategory = request.GET.get('subcategory', '')
-    print(active_subcategory)
+
     if active_subcategory != '':
         active_subcategory = int(active_subcategory)
         subcategory = Subcategory.objects.get(id=active_subcategory)
         items = Item.objects.filter(subcategory=subcategory)
 
-    # min_price = request.GET.get('price__min')
-    # max_price = request.GET.get('price__max')
-    # if min_price and max_price:
-    #     items = items.filter(price__gte=min_price, price__lte=max_price)
-    #     print(items)
-    #     data = {'items': list(items.values())}
-    #     return JsonResponse(data)
     if request.method == 'POST':
         min_price = request.POST.get('price__min')
         max_price = request.POST.get('price__max')
@@ -437,12 +278,10 @@ def main_page(request):
         data = {'items': list(items.values())}
         return JsonResponse(data)
 
-    print(items)
 
     username = request.COOKIES.get('username', '')
 
     context = {
-        # 'categories': categories,
         'items': items,
         'subcategories': subcategories,
         'active_category': active_category,
@@ -457,18 +296,22 @@ def main_page(request):
         liked_items = profile.liked_items.all()
         context['liked_items'] = liked_items
 
+    
     return render(request, 'main.html', context)
 
 
 def product_page(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
 
+    reviews = Review.objects.filter(item=item)
+    print(reviews)
+
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
         liked_items = profile.liked_items.all()
-        return render(request, 'item_page.html', {'item': item, 'liked_items': liked_items})
+        return render(request, 'item_page.html', {'item': item, 'reviews': reviews, 'liked_items': liked_items})
 
-    return render(request, 'item_page.html', {'item': item})
+    return render(request, 'item_page.html', {'item': item, 'reviews': reviews})
 
 
 def add_to_cart(request, item_id):
@@ -495,21 +338,11 @@ def add_to_cart(request, item_id):
                 'quantity': 1
             })
 
-        # for item in request.session['cart']:
-        #     # item_exist = next((item for item in request.session['cart'] if item['id'] == item_id), False)
-        #     # print(item_exist)
-        #     # if item_exist:
-        #     #     continue
-        #     item = get_object_or_404(Item, id=item_id)
-        #     cart_items.append(CartItem(item=item, quantity=quantity))
-        
+
         for item in cart_items:
             request.session['cart'].append(item)
 
         return redirect('cart')
-
-        # print(cart_items)
-        # print(request.session['cart'])
 
 
 def delete_from_cart_session(request, item_id):
@@ -519,7 +352,6 @@ def delete_from_cart_session(request, item_id):
     return redirect('cart')
 
 def increment_cart_item(request, item_id):
-    # item = get_object_or_404(Item, id=item_id)
     if request.user.is_authenticated:
         item = get_object_or_404(Item, id=item_id)
         cart = Cart.objects.get(user=request.user)
@@ -562,32 +394,6 @@ def decrement_cart_item(request, item_id):
         return redirect('cart')
 
 
-# def create_order_session(request):
-#     if not request.session.get('cart'):
-#         request.session['cart'] = list()
-#     else:
-#         request.session['cart'] = list(request.session['cart'])
-
-#     session_key = request.session.session_key
-#     email = request.POST.get('email')
-#     phone = request.POST.get('phone')
-#     address = request.POST.get('address')
-#     order = Order.objects.create(session_key=session_key, email=email, phone=phone, address=address, total_price=0)
-
-#     for item_id, quantity in cart.items():
-#         item = Item.objects.get(id=item_id)
-#         price = item.price
-#         order_item = OrderItem.objects.create(item=item, order=order, quantity=quantity, price=price)
-
-#     order.total_price = order.get_total()
-#     order.save()
-
-#     # Clear the cart
-#     request.session['cart'] = {}
-
-#     return render(request, 'orders/order_created.html', {'order': order})
-
-
 @login_required
 def delete_from_cart(request, item_id):
     item = get_object_or_404(Item, id=item_id)
@@ -599,32 +405,14 @@ def delete_from_cart(request, item_id):
     cart.save()
 
     return redirect('cart')
-
-
-# @login_required
-# def add_to_liked(request, item_id):
-#     item = get_object_or_404(Item, id=item_id)
-#     profile, created = Profile.objects.get_or_create(user=request.user)
-
-#     if profile.liked_items.filter(id=item_id).exists():
-#         profile.liked_items.remove(item)
-#     else:
-#         profile.liked_items.add(item)
-#     profile.save()
-#     # return redirect('liked_items')
-#     previous_url = request.META.get('HTTP_REFERER')
-#     if previous_url is not None:
-#         return HttpResponseRedirect(previous_url)
-#     else:
-#         return HttpResponseRedirect(reverse('liked_items'))
-    
+ 
 
 def cart(request):
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)
         cart_items = CartItem.objects.filter(cart=cart)
 
-        profile = Profile.objects.get(user=request.user)
+        profile, created = Profile.objects.get_or_create(user=request.user)
         liked_items = profile.liked_items.all()
     else:
         cart_items = []
@@ -637,13 +425,15 @@ def cart(request):
                 item_object = Item.objects.get(id=item['id'])
                 print(item)
                 cart_items.append({'item': item_object, 'quantity': int(item['quantity'])})
-        return render(request, 'cart.html', {'cart_items': cart_items})
+
+        contact_form = ContactForm()
+        return render(request, 'cart.html', {'cart_items': cart_items, 'contact_form': contact_form})
 
     return render(request, 'cart.html', {'cart_items': list(cart_items), 'liked_items': liked_items})
 
 
 def liked_items(request):
-    profile = Profile.objects.get(user=request.user)
+    profile, created = Profile.objects.get_or_create(user=request.user)
     liked_items = profile.liked_items.all()
     return render(request, 'liked.html', {'liked_items': liked_items})
 
@@ -663,3 +453,121 @@ def add_to_liked(request, item_id):
     print(profile.liked_items.all())
 
     return JsonResponse({'liked': liked})
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        orders = Order.objects.filter(user=request.user).order_by('-ordered_date')
+        if request.method == "POST":
+            request_body = request.body.decode('utf-8')
+            data = json.loads(request_body)
+
+            updated_request = request.POST.copy()
+            updated_request.update({     
+                'user': request.user, 
+                'item': Item.objects.get(id=data.get("item_id")),
+                'rating': data.get("rating"),
+                'message': data.get("message"),
+            })
+            rating_form = ReviewForm(updated_request)
+            print(rating_form.is_valid())
+            print(rating_form.errors)
+            if rating_form.is_valid():
+                rating_form.save()
+                messages.success(request, f'Your review has been accepted.')
+                return HttpResponseRedirect(reverse('profile'))
+
+            context = {'user': request.user, 'orders': orders, 'rating_form': rating_form, 'profile': profile}
+        else:
+            rating_form = ReviewForm()
+            contact_form = ContactForm()
+            context = {'user': request.user, 'orders': orders, 'rating_form': rating_form, 'profile': profile, 'contact_form': contact_form}
+    else:
+        return HttpResponseBadRequest('You can not access this page')
+        
+    return render(request, 'profile.html', context)
+
+
+def add_contact_number_to_profile(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            request_body = request.body.decode('utf-8')
+            data = json.loads(request_body)
+            country_code = data.get('country_code')
+            number = data.get('contact_number')
+            print(country_code)
+            print(number)
+            contact_number = country_code + number
+            profile = Profile.objects.get(user=request.user)
+
+            profile.contact_number = contact_number
+            profile.save()
+
+        return HttpResponseRedirect(reverse('profile'))
+
+    else:
+        return HttpResponseBadRequest('You can not access this page')
+
+
+def form_order(request):
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+        cart_items = CartItem.objects.filter(cart=cart)
+        total = Decimal('0.00')
+
+        order = Order.objects.create(user=request.user, total_price=0)
+        order_items = []
+
+        for cart_item in cart_items:
+            total += cart_item.item.price * cart_item.quantity
+            item = Item.objects.get(id=cart_item.id)
+            order_item = OrderItem.objects.create(item=item, order=order, quantity=cart_item.quantity)
+            order_items.append(order_item)
+            print(order_item)
+
+        print(total)
+        print(order_items)
+        order.total_price = total
+        order.save()
+        order_item_ids = [order_item.item.id for order_item in order_items]
+        for id in order_item_ids:
+            print('id ', id)
+        order.items.add(*order_item_ids)
+        order.save()
+
+        return redirect('profile')
+    
+    else:
+        if request.method == 'POST':
+            request_body = request.body.decode('utf-8')
+            data = json.loads(request_body)
+            country_code = data.get('country_code')
+            number = data.get('contact_number')
+            contact_number = country_code + number
+
+            session_key = request.session.session_key
+
+            order = Order.objects.create(session_key=session_key, total_price=0, contact_number=contact_number)
+
+            order_items = []
+            total = Decimal('0.00')
+            request.session['cart'] = list(request.session['cart'])
+            for item in request.session['cart']:
+                item_object = Item.objects.get(id=item['id'])
+                total += item_object.price * int(item['quantity'])
+                order_item = OrderItem.objects.create(item=item_object, order=order, quantity=int(item['quantity']))
+                order_items.append(order_item)
+
+            order.total_price = total
+            order.save()
+            order_item_ids = [order_item.item.id for order_item in order_items]
+
+            order.items.add(*order_item_ids)
+            order.save()
+
+        return redirect('cart')
+
+
+
+

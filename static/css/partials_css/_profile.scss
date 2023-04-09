@@ -1,0 +1,123 @@
+.profile__username__heading{
+    margin-bottom: 1rem;
+}
+.profile__user-email{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.profile__user__info-card{
+    max-width: fit-content;
+    margin-top: 11.813rem;
+    font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	align-items: center;
+	color: #FFFFFF;
+	padding: 3.625rem;
+	border-radius: 15px;
+	background: rgba(239, 101, 1, 0.75);
+}
+.profile__page-heading{
+    margin-top: 6rem;
+}
+.order__item__card{
+    max-width: 585px;
+}
+.order__item__name{
+    margin-right: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: fit-content;
+    max-width: 198px;
+}
+.order__feedback{
+    border: none;
+    max-width: fit-content;
+    font-weight: 500;
+    color: #fff;
+    padding: 1.25rem;
+	border-radius: 15px;
+	background: rgba(239, 101, 1, 0.75);
+    text-align: center;
+}
+.order__timing{
+    color: #3E3E3E;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+.order__price{
+    display: flex;
+    margin-right: 10px;
+}
+.order__item-quantity{
+    margin-left: 10px;
+    margin-bottom: 6px;
+    color: #ef6501;
+    font-weight: 600;
+    font-size: 16px;
+}
+.order__info-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.order__card__content{
+    flex-direction: column;
+}
+.order__item__info{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stars input[type="radio"] {
+    display: none;
+}
+.stars label {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/svg/star-empty.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+.stars .filled {
+    background-image: url('../img/svg/star-filled.svg');
+}
+
+.profile__contact-num{
+    margin-top: 0.5rem;
+}
+
+#add_contact{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+}
+
+@media screen and (max-width: 527px){
+    .profile__user__info-card{
+        max-width: 100%;
+        margin-top: 7.3rem;
+    }
+    .order__info-block{
+        flex-direction: column;
+    }
+    .order__item__card{
+        max-width: 100%;
+    }
+    .order__item__name{
+        max-width: 130px;
+    }
+}

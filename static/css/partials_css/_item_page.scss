@@ -30,7 +30,7 @@
 	width: 600px;
 	filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
 	border-radius: 10px;
-	margin-right: 9.563rem;
+	margin-bottom: 2rem;
 }
 .item-page__item__info {
 	padding: 2.063rem 2.75rem;
@@ -38,7 +38,23 @@
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 	max-width: 634px;
+	min-height: 600px;
 	align-self: start;
+}
+.item-page__left-container{
+	// display: flex;
+	// flex-direction: column;
+	display: block;
+	margin-right: 9.563rem;
+}
+.item-page__reviews-container{
+	padding: 2.063rem 2.75rem;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+.item-page__reviews-container-2{
+	display: none;
 }
 .item-page__item__desc-heading {
 	font-weight: 500;
@@ -46,6 +62,70 @@
 	line-height: 1.5rem;
 	color: #EF6501;
 	margin-bottom: 1.25rem;
+	max-width: fit-content;
+	display: inline-block;
+	margin-right: 1.25rem;
+}
+.item-page__item__reviews-heading{
+	font-weight: 500;
+	font-size: 1.375rem;
+	line-height: 1.5rem;
+	color: #EF6501;
+	margin-bottom: 1.25rem;
+	max-width: fit-content;
+	display: inline-block;
+	margin-right: 1.25rem;
+}
+.heading__unactive{
+	padding: 0.5rem 0.8rem;
+	border-radius: 20px;
+	border: 1px solid #EF6501;
+	cursor: pointer;
+}
+.rating-stars{
+	display: flex;
+	width: fit-content;
+}
+.review-username{
+	font-size: 1.2rem;
+	font-weight: 500;
+	color:#5E5E5E;
+}
+.review-timestamp{
+	color: #a0a0a0;
+}
+.review-message{
+	font-size: 1rem;
+	font-weight: 400;
+	color:#5E5E5E;
+}
+.review-box{
+	margin-bottom: 1rem;
+}
+.reviews__block{
+	overflow-y: auto;
+	max-height: 140px;
+}
+.reviews__block::-webkit-scrollbar {
+  width: 10px; 
+}
+.reviews__block::-webkit-scrollbar-thumb {
+  background-color: #ccc; 
+  border-radius: 5px;
+}
+.reviews__block::-webkit-scrollbar-track {
+  background-color: #f2f2f2; 
+  border-radius: 5px;
+}
+.star {
+	width: 20px;
+	height: 20px;
+	background-image: url('../img/svg/star-empty.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.star-filled {
+  	background-image: url('../img/svg/star-filled.svg');
 }
 .item-page__item__desc-text {
 	font-weight: 400;
@@ -195,6 +275,11 @@
 	.item-page__item__img {
 		height: 400px;
 		width: 400px;
+	}
+	.item-page__left-container{
+		width: 400px;
+	}
+	.item-page__left-container{
 		margin-right: 4rem;
 	}
 	.item-page__add_text {
@@ -202,6 +287,7 @@
 	}
 	.item-page__item__info {
 		align-self: start;
+		min-height: unset;
 	}
 	.item-page__item__desc-text{
 		line-height: 1.6rem;
@@ -219,6 +305,11 @@
 	.item-page__item__img {
 		height: 350px;
 		width: 350px;
+	}
+	.item-page__left-container{
+		width: 350px;
+	}
+	.item-page__left-container{
 		margin-right: 2rem;
 	}
 }
@@ -232,6 +323,9 @@
 	.item-page__item__advantage {
 		padding: 0.5rem 0 1rem 5.2rem;
 	}
+	.item-page__item__img{
+		margin-right: 0;
+	}
 }
 @media screen and (max-width: 780px) {
 	.item-page__item__desc-heading {
@@ -244,6 +338,20 @@
 		margin: 0 auto;
 		max-width: 80%;
 		margin-bottom: 3rem;
+	}
+	.item-page__reviews-container-2{
+		display: block;
+		padding: 2.063rem 2.75rem;
+		background: #FFFFFF;
+		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		margin-top: 1.5rem;
+	}
+	.item-page__left-container{
+		margin-right: 0;
+	}
+	.item-page__reviews-container{
+		display: none;
 	}
 	.item-page__item__img {
 		margin-bottom: 3rem;
@@ -267,7 +375,10 @@
 	.item-page__item__content {
 		margin: 0;
 		max-width: 100%;
-		display: grid;
+		display: flex;
+	}
+	.item__page__item__full-info{
+		width: 100%;
 	}
 	.item-page__item__heading__sm-screen {
 		display: block;
@@ -277,10 +388,22 @@
 		font-size: 2.022rem;
 		line-height: 2.39rem;
 		color: #5E5E5E;
+		min-width: 100%;
+	}
+	.item-page__reviews-container-2{
+		margin-bottom: 1.5rem;
+		margin-top: 0;
+		padding: 1.2rem 1.3rem;
 	}
 	.item-page__item__img {
 		height: auto;
-		width: 340px;
+		width: 100%;
+		margin-right: 0;
+	}
+	.item-page__left-container{
+		width: 100%;
+		height: auto;
+		max-width: 340px;
 		margin-right: 0;
 		margin: 6.434rem auto 2.206rem auto;
 	}

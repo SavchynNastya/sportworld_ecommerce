@@ -494,7 +494,72 @@ a {
 	}
 }
 
-/* login */
+/* forms */
+
+#modal-contact{
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal-review{
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#close-contact-modal{
+	position: absolute;
+	top: 5px;
+	right: 12px;
+	border: 0;
+	background: transparent;
+	color:  #EF6501;
+	font-size: 2rem;
+}
+
+#close-review-modal{
+	position: absolute;
+	top: 5px;
+	right: 12px;
+	border: 0;
+	background: transparent;
+	color:  #EF6501;
+	font-size: 2rem;
+}
+
+#modal-contact .login__form input{
+	margin-bottom: 1.3rem;
+}
+
+.county-code-select{
+	border: 2px solid #EF6501;
+	border-radius: 15px;
+	color:#0A0909;
+	padding: 0.3rem 2rem;
+	font-size: 1.3rem; 
+	font-family: 'Montserrat', sans-serif;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+#id_phone_number{
+	border-left: none;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
 
 #modal {
 	display: none;
@@ -553,6 +618,22 @@ a {
 	margin-bottom: 1rem;
 }
 
+#modal-review-title{
+	color: #EF6501;
+	margin: 0 auto;
+	margin-top: 1rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
+#modal-contact-title{
+	color: #EF6501;
+	margin: 0 auto;
+	margin-top: 1rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
 #switch-to-register {
 	color: #EF6501;
 	text-decoration: underline;
@@ -573,9 +654,20 @@ a {
 	border: 2px solid #EF6501;
 	border-radius: 15px;
 	padding: 0.4rem 2rem;
-	font-size: 1rem; 
+	font-size: 1.3rem; 
 	font-family: 'Montserrat', sans-serif;
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form__textarea{
+	border: 2px solid #EF6501;
+	border-radius: 15px;
+	padding: 0.4rem 2rem;
+	font-size: 1.3rem; 
+	font-family: 'Montserrat', sans-serif;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+	max-width: 270px;
+	max-height: 120px;
 }
 
 .login__form input:last-child{
@@ -662,8 +754,19 @@ a {
 	margin-bottom: 0.5rem;
 }
 
-// @import './partials_css/main.scss';
-// @import './partials_css/cart.scss';
-// @import './partials_css/index.scss';
-// @import './partials_css/liked.scss';
-// @import './partials_css/item_page.scss';
+
+@media screen and (max-width: 572px){
+	.login__form{
+		width: 100%;
+	}
+	.modal-content{
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		border-radius: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}

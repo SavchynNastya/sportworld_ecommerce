@@ -3,8 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from .backends import EmailBackend
-from .models import Subcategory, Category
+from .models import Review
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -13,19 +12,20 @@ class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Електронна пошта')
     password1 = forms.CharField(label='Пароль', strip=False, widget=forms.PasswordInput)
     password2 = forms.CharField(label='Підтвердження паролю', strip=False, widget=forms.PasswordInput)
+
     error_messages = {
         'password_mismatch': 'Паролі не співпадають.'
     }
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'password1', 'password1']
+        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
         labels = {
             'first_name': 'Ім`я',
             'last_name': 'Прізвище',
             'email': 'Email',
             'password1': 'Пароль',
-            'password2': 'Повторно пароль'
+            'password2': 'Повторно пароль',
         }
 
     def clean(self):
@@ -74,10 +74,6 @@ class CustomAuthenticationForm(AuthenticationForm):
                 self.add_error('password', 'Неправильний пароль')
                 return cleaned_data
 
-            # if not self.user_can_authenticate(user):
-            #     self.add_error('username', 'Акаунт не активний')
-            #     return cleaned_data
-
         return cleaned_data
 
 class PasswordResetForm(PasswordResetForm):
@@ -122,3 +118,24 @@ class SetPasswordResetForm(SetPasswordForm):
     error_messages = {
         'password_mismatch': 'Паролі не співпадають.'
     }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['item', 'user', 'rating', 'message']
+    rating = forms.IntegerField(min_value=1, max_value=5, widget=forms.RadioSelect(attrs={'class': 'rating'}))
+    message = forms.CharField(label="Опишіть якість товару", widget=forms.Textarea(attrs={'class': 'form__textarea'}), required=False)
+
+
+class ContactForm(forms.Form):
+    country_code = forms.ChoiceField(choices=[('38', '+38'), ('48', '+48')], label='Country code', widget=forms.Select(attrs={'class':'county-code-select'}))
+    phone_number = forms.CharField(label='Номер телефону', widget=forms.TextInput(attrs={'type': 'tel'}))
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        if not phone_number.isdigit():
+            raise ValidationError('Номер телефону повинен містити лише цифри.')
+        if len(phone_number) != 10:
+            raise ValidationError('Номер телефону повинен мати 10 цифр.')
+        return phone_number
