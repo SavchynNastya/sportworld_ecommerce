@@ -85,3 +85,32 @@
 })();
 
 
+(function () {
+  const itemCards = document.querySelectorAll(".main__item__card");
+  // console.log(likeItemButton)
+  itemCards.forEach((itemCard) => {
+    console.log(itemCard);
+    const likeItemButton = itemCard.querySelector(".main__like__item-button");
+    likeItemButton.addEventListener("click", () => {
+      const itemId = itemCard.dataset.id;
+      console.log(itemId);
+
+      fetch(`/add-to-liked/${itemId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          let likeButtonIcon = likeItemButton.querySelector(".like__item");
+          console.log(data);
+          if (data.liked) {
+            likeButtonIcon.src = "static/img/svg/item_liked.svg";
+          } else {
+            likeButtonIcon.src = "static/img/svg/item_like.svg";
+          }
+
+          if (window.location.href.includes("/liked/")) {
+            window.location.reload();
+          }
+        })
+        .catch((error) => console.error(error));
+    });
+  });
+})();

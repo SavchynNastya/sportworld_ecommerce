@@ -19,16 +19,6 @@ descHeadings.forEach((descHeading) => {
 });
 
 
-const ratingStars = document.querySelectorAll(".rating-stars");
-ratingStars.forEach((ratingStarsSet) => {
-  const rating = ratingStarsSet.dataset.rating;
-
-  for (let i = 0; i < rating; i++) {
-    ratingStarsSet.children[i].classList.add("star-filled");
-  }
-})
-
-
 (function () {
   const itemCard = document.querySelector(".item__page__item__full-info");
     console.log(itemCard);
@@ -55,3 +45,12 @@ ratingStars.forEach((ratingStarsSet) => {
       .catch((error) => console.error(error));
   });
 })();
+
+const ratingStars = document.querySelectorAll(".rating-stars");
+ratingStars.forEach((ratingStarsSet) => {
+  const rating = ratingStarsSet.dataset.rating;
+
+  for (let i = 0; i < rating; i++) {
+    ratingStarsSet.children[i].classList.add("star-filled");
+  }
+});

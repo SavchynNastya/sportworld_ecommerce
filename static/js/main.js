@@ -176,32 +176,6 @@ function sortItems(sortOrder) {
   });
 })();
 
-// (function(){
-//   const itemCards = document.querySelectorAll(".main__item__card");
-//   let clicked = false;
-
-//   itemCards.forEach((item) => {
-//     const addToCartButton = item.querySelector(".main__add-to-cart-button");
-//     addToCartButton.addEventListener('click', () => {
-//       clicked = true;
-//       return;
-//     });
-
-//     if(clicked) return;
-
-//     item.addEventListener('click', () => {
-//       const itemId = item.dataset.id;
-
-//       var xhr = new XMLHttpRequest();
-//       xhr.open('GET', `/product/${itemId}`);
-//       xhr.onload = function() {
-//         window.location.href = xhr.responseURL;
-//       };
-//       xhr.send();
-//     });
-//   })
-
-// })();
 
 (function () {
   const itemCards = document.querySelectorAll(".main__item__card");

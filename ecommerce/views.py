@@ -207,7 +207,6 @@ def landing_page(request):
 
 
 def main_page(request):
-
     producers = Producer.objects.all()
     categories = Category.objects.all()
     subcategories = ''
@@ -350,6 +349,7 @@ def delete_from_cart_session(request, item_id):
     request.session['cart'] = [x for x in request.session['cart'] if x['id'] != item_id]
 
     return redirect('cart')
+
 
 def increment_cart_item(request, item_id):
     if request.user.is_authenticated:
