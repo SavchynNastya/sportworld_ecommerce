@@ -62,9 +62,7 @@ function submitForm(form, url, title) {
             if(response.redirect_url){
               window.location.href = response.redirect_url;
             }
-            
-            // let username_encoded = btoa(response.username);
-            // console.log(document.cookie)
+
           } else {
             const formHtml = xhr.responseText;
             const formContainer = form.parentElement;
@@ -148,8 +146,6 @@ function switchToForgotPasswordForm(){
 
 openModalBtns.forEach((openModalBtn) => {
   openModalBtn.addEventListener("click", function () {
-    // const loginForm = document.getElementById("login-form");
-    // const modalTitle = document.getElementById("modal-title");
 
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -169,8 +165,6 @@ openModalBtns.forEach((openModalBtn) => {
 })
 
 function switchToRegisterForm() {
-  // const loginForm = document.getElementById("login-form");
-  // const modalTitle = document.getElementById("modal-title");
   forgotPasswordLink.style.display = "none";
 
   const xhr = new XMLHttpRequest();
@@ -193,8 +187,6 @@ function switchToRegisterForm() {
 }
 
 function switchToLoginForm() {
-  // const loginForm = document.getElementById("login-form");
-  // const modalTitle = document.getElementById("modal-title");
   forgotPasswordLink.style.display = "block";
 
   const xhr = new XMLHttpRequest();
@@ -219,3 +211,42 @@ function switchToLoginForm() {
 
 switchToRegisterLink.addEventListener("click", switchToRegisterForm);
 
+
+(function () {
+    const burgerItem = document.querySelector('.burger');
+    const menu = document.querySelectorAll('.header__nav');
+    const menuCloseItem = document.querySelector('.header__nav-close');
+    const menuLinks = document.querySelectorAll(".header__link");
+    const menuIcons = document.querySelectorAll(".header__icon_item");
+    const hiddenLinks = document.querySelectorAll(".hidden__link");
+    burgerItem.addEventListener('click', () => {
+        menu.forEach(m => {
+          m.classList.add("header__nav_active");
+        });
+        hiddenLinks.forEach((link) => {
+          link.classList.add("hidden__link_active");
+        });
+    });
+    menuCloseItem.addEventListener('click', () => {
+        menu.forEach((m) => {
+          m.classList.remove("header__nav_active");
+        });
+        hiddenLinks.forEach((link) => {
+          link.classList.add("hidden__link_active");
+        });
+    });
+    for (let i=0; i < menuLinks.length; i+=1){
+        menuLinks[i].addEventListener('click', () => {
+            menu.forEach((m) => {
+              m.classList.remove("header__nav_active");
+            });
+        });
+    }
+    for (let i = 0; i < menuIcons.length; i += 1) {
+      menuIcons[i].addEventListener("click", () => {
+        menu.forEach((m) => {
+          m.classList.remove("header__nav_active");
+        });
+      });
+    }
+}());

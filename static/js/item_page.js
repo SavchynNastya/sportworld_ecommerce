@@ -28,52 +28,6 @@ ratingStars.forEach((ratingStarsSet) => {
   }
 })
 
-// if(window.innerWidth > 572){
-//   const openReviews = document.querySelector(".item-page__item__reviews-heading");
-//   const openDesc = document.querySelector(".item-page__item__desc-heading");
-
-//   const descContent = document.querySelector(".item-page__item__desc-text");
-//   const reviewsContent = document.querySelector(".reviews__block");
-
-//   openDesc.addEventListener('click', () => {
-//     descContent.style.display = "block";
-//     reviewsContent.style.display = "none";
-//     openDesc.classList.remove("heading__unactive");
-//     openReviews.classList.add("heading__unactive");
-//   });
-
-//   openReviews.addEventListener("click", () => {
-//     reviewsContent.style.display = "block";
-//     descContent.style.display = "none";
-//     openReviews.classList.remove("heading__unactive");
-//     openDesc.classList.add("heading__unactive");
-//   });
-// }
-
-
-(function () {
-  const burgerItem = document.querySelector(".burger");
-  const menu = document.querySelector(".nav__links");
-  const menuCloseItem = document.querySelector(".header__nav-close");
-  const menuLinks = document.querySelectorAll(".header__link");
-  // const hiddenLinks = document.querySelectorAll(".hidden__link");
-  burgerItem.addEventListener("click", () => {
-    menu.classList.add("header__nav_active");
-    // hiddenLinks.forEach((link) => {
-    //   // link.classList.add("hidden__link_active");
-    // });
-  });
-  menuCloseItem.addEventListener("click", () => {
-    menu.classList.remove("header__nav_active");
-  });
-  // if (window.innerWidth < 768) {
-  for (let i = 0; i < menuLinks.length; i += 1) {
-    menuLinks[i].addEventListener("click", () => {
-      menu.classList.remove("header__nav_active");
-    });
-  }
-  // }
-})();
 
 (function () {
   const itemCard = document.querySelector(".item__page__item__full-info");
