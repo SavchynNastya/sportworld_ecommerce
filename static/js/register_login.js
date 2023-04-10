@@ -12,15 +12,6 @@ function showPassword() {
   }
 }
 
-// function setCookies(cookies) {
-//   const cookieNames = Object.keys(cookies);
-//   cookieNames.forEach(function (cookieName) {
-//     const cookieValue = encodeURIComponent(cookies[cookieName]);
-//     const cookieString = `${cookieName}=${cookieValue}; path=/; charset=utf-8`;
-//     document.cookie = cookieString;
-//     console.log(document.cookie)
-//   });
-// }
 
 const modal = document.getElementById("modal");
 const openModalBtns = document.querySelectorAll(".open-modal");

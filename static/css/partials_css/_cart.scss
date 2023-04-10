@@ -60,6 +60,11 @@ $border-color_1: #D9D9D9;
 	height: 200px;
 	margin-right: 20px;
 }
+.cart__item__img{
+	object-fit: cover;
+	width: inherit;
+	height: inherit;
+}
 .cart__card__content {
 	display: flex;
 	flex-direction: row;

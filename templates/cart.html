@@ -27,7 +27,7 @@
                                 </div>
                             </a>
                             <div class="cart__control__buttons">
-                                <button class="cart__like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
+                                <button class="cart__like__item-button">
                                     <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                                 </button>
                                 <button class="cart__delete__item-button">
@@ -66,7 +66,7 @@
                                 </div>
                             </a>
                             <div class="cart__control__buttons">
-                                <button class="cart__like__item-button">
+                                <button class="cart__like__item-button open-modal">
                                     <img src="{% if cart_item.item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                                 </button>
                                 <button class="cart__delete__item-button">

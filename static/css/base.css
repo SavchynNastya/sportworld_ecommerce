@@ -1909,6 +1909,12 @@ span.dot:last-child {
   margin-right: 20px;
 }
 
+.cart__item__img {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
+}
+
 .cart__card__content {
   display: flex;
   flex-direction: row;
