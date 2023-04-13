@@ -86,11 +86,11 @@
 
 
 (function () {
-  const itemCards = document.querySelectorAll(".main__item__card");
+  const itemCards = document.querySelectorAll(".item__card");
   // console.log(likeItemButton)
   itemCards.forEach((itemCard) => {
     console.log(itemCard);
-    const likeItemButton = itemCard.querySelector(".main__like__item-button");
+    const likeItemButton = itemCard.querySelector(".like__item-button");
     likeItemButton.addEventListener("click", () => {
       const itemId = itemCard.dataset.id;
       console.log(itemId);

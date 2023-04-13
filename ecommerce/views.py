@@ -239,7 +239,7 @@ def main_page(request):
         min_price = request.POST.get('price__min')
         max_price = request.POST.get('price__max')
 
-        if min_price and max_price:
+        if min_price.isdigit() and max_price.isdigit():
             items = items.filter(price__gte=min_price, price__lte=max_price)
             if active_category != '':
                 subcategories = Subcategory.objects.filter(category=active_category)

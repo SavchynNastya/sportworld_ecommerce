@@ -171,24 +171,24 @@
                     <div class="slider__wrapper">
                         {% for item in bestsellers %}
                         <div class="card">
-                            <div class="main__item__card" data-price="{{ item.price }}" data-id="{{ item.id }}">
-                                <button class="main__like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
+                            <div class="item__card" data-price="{{ item.price }}" data-id="{{ item.id }}">
+                                <button class="like__item-button {% if user.is_authenticated %}{% else %}open-modal{% endif %}">
                                     <img src="{% if item in liked_items %}../static/img/svg/item_liked.svg{% else %}../static/img/svg/item_like.svg{% endif %}" alt="like__item" class="like__item">
                                 </button>
-                                <button class="main__add-to-cart-button">
+                                <button class="add-to-cart-button">
                                     <a href="{% url 'add_to_cart' item_id=item.id %}" class="">
                                         <img src="../static/img/svg/add-to-cart.svg" alt="add to cart" class="add_to_cart">
                                     </a>
                                 </button>
-                                <div class="main__card__content">
-                                    <div class="main__img__container">
+                                <div class="card__content">
+                                    <div class="img__container">
                                         <img src="../media/{{ item.image }}" alt="item_img" class="main__item__img">
                                     </div>
-                                    <div class="main__item__info">
+                                    <div class="item__info">
                                         <a href="{% url 'product_page' item_id=item.id %}">
-                                            <p class="main__item__name">{{ item.name }}</p>
+                                            <p class="item__name">{{ item.name }}</p>
                                         </a>
-                                        <p class="main__item__cost">{{ item.price|floatformat:0  }} UAH</p>
+                                        <p class="item__cost">{{ item.price|floatformat:0  }} UAH</p>
                                     </div>
                                 </div>
                             </div>
