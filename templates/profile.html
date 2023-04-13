@@ -31,7 +31,7 @@
                         <div class="cart__card__content order__card__content">
                             {% for order_item in order.orderitem_set.all %}
                             <div class="cart__item__info order__item__info" data-id="{{ order_item.item.id }}">
-                                <p class="cart__item__name order__item__name">{{ order_item.item.name }}</p>
+                                <p class="cart__item__name order__item__name">{{ order_item.item.name|truncatechars:54|default:'' }}</p>
                                 <div class="order__info-block">
                                     <div class="order__price">
                                         <p class="item__cost">{{ order_item.item.price|floatformat:0  }} UAH</p>
