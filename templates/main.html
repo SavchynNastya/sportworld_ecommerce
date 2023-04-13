@@ -55,10 +55,12 @@
                 <button type="submit" class="search__button"><img src="../static/img/svg/search.svg" alt="" class="search__button-img"></button>
             </form>
         </div>
+        {% if request.user.is_authenticated %}
         {% if request.COOKIES.username %}
         <div class="wrapper">
             <p class="greeting-user">Вітаю, {{ request.COOKIES.username }}!</p>
         </div>
+        {% endif %}
         {% endif %}
         <!-- active-category -->
         <!-- active-subcategory -->
