@@ -77,7 +77,7 @@
                             </div>
                             <div class="cart__item__info">
                                 <a href="{% url 'product_page' item_id=cart_item.item.id %}">
-                                    <p class="cart__item__name">{{ cart_item.item.name }}</p>
+                                    <p class="cart__item__name">{{ cart_item.item.name|truncatechars:54|default:'' }}</p>
                                 </a>
                                 <p class="cart__item__desc-short">
                                     {{ cart_item.item.description|truncatechars:290|default:'' }}

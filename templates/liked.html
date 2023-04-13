@@ -33,7 +33,7 @@
                         </div>
                         <div class="main__item__info">
                             <a href="{% url 'product_page' item_id=liked_item.id %}">
-                                <p class="main__item__name">{{ liked_item.name }}</p>
+                                <p class="main__item__name">{{ liked_item.name|truncatechars:54|default:'' }}</p>
                             </a>
                             <p class="main__item__cost">{{ liked_item.price|floatformat:0  }} UAH</p>
                         </div>

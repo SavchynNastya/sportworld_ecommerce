@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="item__info">
                                         <a href="{% url 'product_page' item_id=item.id %}">
-                                            <p class="item__name">{{ item.name }}</p>
+                                            <p class="item__name">{{ item.name|truncatechars:54|default:'' }}</p>
                                         </a>
                                         <p class="item__cost">{{ item.price|floatformat:0  }} UAH</p>
                                     </div>
