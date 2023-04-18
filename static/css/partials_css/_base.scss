@@ -398,6 +398,12 @@ a {
 	}
 }
 @media screen and (max-width: 572px) {
+	.header__burger{
+		height: 18px;
+	}
+	.header__burger-line{
+		width: 38px;
+	}
 	.header__logo {
 		max-width: 126px;
 	}

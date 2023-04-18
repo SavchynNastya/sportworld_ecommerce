@@ -432,6 +432,12 @@ a {
   }
 }
 @media screen and (max-width: 572px) {
+  .header__burger {
+    height: 18px;
+  }
+  .header__burger-line {
+    width: 38px;
+  }
   .header__logo {
     max-width: 126px;
   }
@@ -2625,6 +2631,7 @@ span.dot:last-child {
   text-transform: lowercase;
   display: block;
   text-align: center;
+  text-decoration: underline;
 }
 
 .item__card {
@@ -3608,11 +3615,8 @@ span.dot:last-child {
 }
 @media screen and (max-width: 900px) {
   .item-page__item__img {
-    height: 350px;
-    width: 350px;
-  }
-  .item-page__left-container {
-    width: 350px;
+    height: auto;
+    width: 100%;
   }
   .item-page__left-container {
     margin-right: 2rem;
@@ -3701,14 +3705,16 @@ span.dot:last-child {
     padding: 1.2rem 1.3rem;
   }
   .item-page__item__img {
-    height: auto;
+    height: 100%;
     width: 100%;
     margin-right: 0;
+  }
+  .left__content {
+    width: 100%;
   }
   .item-page__left-container {
     width: 100%;
     height: auto;
-    max-width: 340px;
     margin-right: 0;
     margin: 6.434rem auto 2.206rem auto;
   }

@@ -14,31 +14,33 @@
         <div class="wrapper">
             <h1 class="item-page__item__heading">{{ item.name }}</h1>
             <div class="item-page__item__content">
-                <div class="item-page__left-container">
-                    <img src="../media/{{ item.image }}" alt="Item Image" class="item-page__item__img">
-                    {% if reviews %}
-                    <div class="item-page__reviews-container">
-                        <p class="item-page__item__reviews-heading">Відгуки<span class="item-page__tick"></span></p>
-                        <div class="reviews__block">
-                            {% for review in reviews %}
-                            <div class="review-box">
-                                <p class="review-username">{{ review.user.first_name }} {{ review.user.last_name }}</p>
-                                <span class="review-timestamp">{{ review.date|date:"Y-m-d H:i" }}</span>
-                                <span class="rating-stars" data-rating="{{ review.rating }}">
-                                    <span class="star"></span>
-                                    <span class="star"></span>
-                                    <span class="star"></span>
-                                    <span class="star"></span>
-                                    <span class="star"></span>
-                                </span>
-                                {% if review.message %}
-                                <p class="review-message">{{ review.message }}</p>
-                                {% endif %}
+                <div class="left__content">
+                    <div class="item-page__left-container">
+                        <img src="../media/{{ item.image }}" alt="Item Image" class="item-page__item__img">
+                        {% if reviews %}
+                        <div class="item-page__reviews-container">
+                            <p class="item-page__item__reviews-heading">Відгуки<span class="item-page__tick"></span></p>
+                            <div class="reviews__block">
+                                {% for review in reviews %}
+                                <div class="review-box">
+                                    <p class="review-username">{{ review.user.first_name }} {{ review.user.last_name }}</p>
+                                    <span class="review-timestamp">{{ review.date|date:"Y-m-d H:i" }}</span>
+                                    <span class="rating-stars" data-rating="{{ review.rating }}">
+                                        <span class="star"></span>
+                                        <span class="star"></span>
+                                        <span class="star"></span>
+                                        <span class="star"></span>
+                                        <span class="star"></span>
+                                    </span>
+                                    {% if review.message %}
+                                    <p class="review-message">{{ review.message }}</p>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                         </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
                 <h1 class="item-page__item__heading__sm-screen">{{ item.name }}</h1>
                 <div class="item__page__item__full-info" data-id="{{ item.id }}">
